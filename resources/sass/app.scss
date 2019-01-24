@@ -1,0 +1,16 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import 'variables';
+@import 'common';
+@import 'home';
+@import 'about';
+@import 'markets';
+@import 'single-market';
+@import 'capabilities';
+@import 'single-capability';
+@import 'global';
+
+//  Slick slider
+@import '~slick-carousel/slick/slick-theme';
+@import '~slick-carousel/slick/slick';

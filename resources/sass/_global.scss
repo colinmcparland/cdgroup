@@ -1,0 +1,142 @@
+h1, .h1 {
+  font-size: $h1;
+  font-family: $muli;
+  color: $darkgrey;
+}
+
+h2, .h2 {
+  font-size: $h2;
+  letter-spacing: 2px;
+  font-family: $muli;
+  color: $darkgrey;
+}
+
+h3 {
+  font-size: $h3;
+  color: $darkgrey;
+  font-family: $muli;
+}
+
+h4, .h4 {
+  font-size: $h4;
+  letter-spacing: 2px;
+  font-family: $muli;
+  color: $darkgrey;
+}
+
+h5, .h5 {
+  font-size: $h5;
+  font-family: $muli;
+  color: $darkgrey;
+}
+
+p {
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: .9px;
+  color: $darkgrey;
+  font-smoothing: antialiased;
+  font-family: $mont;
+}
+
+@keyframes flipper {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+}
+
+.loading-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+
+  img {
+    animation-name: flipper;
+    animation-iteration-count: infinite;
+    animation-duration: 2s;
+    margin-bottom: 25px;
+  }
+}
+
+.page {
+  padding-top: 125px;
+}
+
+#header {
+  img {
+    width: 100%;
+  }
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  z-index: 299;
+}
+
+#nav {
+  position: relative;
+
+  >div {
+    border-top: 5px solid #fff;
+    transition: 0.3s;
+
+    &:hover {
+      border-color: $blue;
+    }
+  }
+
+  .nav-text {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.7px;
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+    transition: 0.3s;
+    display: block;
+  }
+
+  ul {
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+    z-index: 300;
+    padding: 0;
+    background-color: #f8f8f8;
+    right: 0;
+    display: none;
+
+    li {
+      list-style-type: none;
+      transition: 0.3s;
+
+      &:hover {
+        background-color: #efefef;
+      }
+
+      .h5 {
+        font-size: 0.7rem;
+        white-space: nowrap;
+        font-weight: 500;
+        line-height: 1;
+        margin-bottom: 0;
+        padding: 15px 30px;
+      }
+    }
+  }
+}

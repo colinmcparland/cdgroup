@@ -1,0 +1,128 @@
+.home-slider {
+  overflow: hidden;
+
+  &__heading {
+    color: $blue;
+    font-weight: 700;
+  }
+}
+
+.home-slide-container {
+  position: relative;
+  max-height: 80vh;
+
+  .slide-meta {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    
+    p {
+      color: #fff;
+      padding: 0 25px;
+      font-family: $muli;
+
+      &:first-child {
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.home-slider-blurb {
+  @include blurb;
+}
+
+.home-content-area-1 {
+  @include left-cropped-image-section;
+}
+
+
+.home-content-area-2 {
+  position: relative;
+  overflow: hidden;
+
+  &__image {
+    overflow: hidden;
+    left: 12%;
+    transform: skew(21deg);
+    min-height: 100vh !important;
+
+    img {
+      left: -25%;
+      position: absolute;
+      transform: skew(-21deg);
+    }
+  }
+
+  &__heading {
+    color: $blue;
+    font-weight: 700;
+  }
+
+  &__button {
+    color: $gold;
+    padding: 12px 20px;
+    border: 2px solid $gold;
+    font-family: $muli;
+    transition: 0.3s;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin-top: 15px;
+    letter-spacing: 2px;
+
+    &:hover {
+      filter: brightness(80%);
+      color: $gold;
+      text-decoration: none;
+    }
+  }
+}
+
+.home-markets, .home-capabilities {
+  &__card {
+    border-left: 4px solid $yellow;
+    transition: 0.3s;
+    border-right: 10px solid #fff;
+
+    a {
+      display: block;
+      width: 100%;
+      color: $black;
+      text-decoration: none !important;
+      font-family: $muli;
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+
+    &:hover {
+      background-color: $yellow;
+      transform: scaleY(1.1);
+      
+      a {
+        color: #fff;
+        transform: scaleY(.9);
+      }
+    }
+  }
+
+  &__heading {
+    font-weight: 700;
+    color: $blue;
+  }
+
+  h4 {
+    color: $gold;
+    font-weight: 700;
+  }
+}
+
+.home-projects {
+  @include project-tiles;
+}
+
+.home-careers {
+  @include color-cropped-section;
+}

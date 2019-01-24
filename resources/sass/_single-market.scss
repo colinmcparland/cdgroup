@@ -1,0 +1,41 @@
+.single-market-content-area-1 {
+  &__top-heading {
+   font-weight: 700;
+   color: $yellow;
+  }
+
+  &__title {
+    font-weight: 300;
+  }  
+}
+
+.single-market-content-area-2 {
+  @include blurb;
+
+  &__title {
+    color: $yellow;
+    text-transform: none;
+  }
+
+  &__header {
+    font-size: 3.4rem;
+    font-weight: 800;
+  }
+}
+
+.single-market-cta {
+@include cta-section;
+
+  a {
+    text-decoration: none;
+  }
+
+  p {
+    font-weight: 500;
+    color: #fff;
+  }
+}
+
+.single-market-project-tiles {
+  @include project-tiles;
+}

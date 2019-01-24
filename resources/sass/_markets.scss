@@ -1,0 +1,13 @@
+.markets-content-area-1 {
+  @include blurb;
+  
+  &__title {
+    color: $yellow;
+    font-size: 2.9rem;
+    font-weight: 800;
+  }
+}
+
+.markets-tiles {
+  @include post-archive-tiles;
+}

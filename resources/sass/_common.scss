@@ -1,0 +1,226 @@
+/* 
+  Areas with a cropped image on the left
+ */
+@mixin left-cropped-image-section {
+  position: relative;
+  overflow: hidden;
+
+  &__image {
+    overflow: hidden;
+    right: 12%;
+    transform: skew(-21deg);
+    min-height: 100vh !important;
+
+    img {
+      transform: skew(21deg);
+    }
+  }
+
+  &__heading {
+    color: $blue;
+    font-weight: 700;
+  }
+
+  &__button {
+    color: $gold;
+    padding: 12px 20px;
+    border: 2px solid $gold;
+    font-family: $muli;
+    transition: 0.3s;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin-top: 15px;
+    letter-spacing: 2px;
+
+    &:hover {
+      filter: brightness(80%);
+      color: $gold;
+      text-decoration: none;
+    }
+  }
+}
+
+/* 
+  Common blurb area, with a small title on the left and content on the right
+ */
+@mixin blurb {
+  position: relative;
+  overflow: hidden;
+
+  &__title, &__heading {
+    color: $gold;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  &__heading {
+    font-weight: 700;
+  }
+}
+
+/* 
+  Section with the cutoff blue section on the left
+ */
+@mixin color-cropped-section {
+  overflow: hidden;
+  background-color: $blue;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  position: relative;
+
+  &__heading {
+    color: #fff;
+  }
+
+  &__button {
+    color: #fff;
+    padding: 12px 20px;
+    border: 2px solid #fff;
+    font-family: $muli;
+    transition: 0.3s;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    background-color: $blue;
+
+    &:hover {
+      color: #fff;
+      text-decoration: none;
+      background-color: #fff;
+      color: $blue;
+    }
+  }
+
+  &::before {
+    content: '';
+    width: 33%;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    right: -15%;
+    transform: skewX(-21deg);
+  }
+}
+
+/* 
+  Base for a CTA section
+ */
+@mixin cta-section {
+  position: relative;
+  margin-bottom: 200px;
+
+  &__image {
+    overflow: hidden;
+    right: 12%;
+    transform: skew(-21deg);
+    height: 70vh;
+
+    img {
+      transform: skew(21deg);
+    }
+  }
+
+  &__wrapper {
+    overflow: hidden;
+    background-color: $blue;
+  }
+
+  &__heading {
+    color: #fff;
+  }
+
+  &__button {
+    color: #fff;
+    padding: 12px 20px;
+    border: 2px solid #fff;
+    font-family: $muli;
+    transition: 0.3s;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin-top: 15px;
+    letter-spacing: 2px;
+
+    &:hover {
+      filter: brightness(80%);
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+/* 
+  Tiles that contain project posts or another post type
+ */
+@mixin project-tiles {
+  &__card {
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    p {
+      color: $darkgrey;
+      font-weight: 700;
+    }
+  }
+
+  &__button {
+    color: $gold;
+    padding: 12px 20px;
+    border: 2px solid $gold;
+    font-family: $muli;
+    transition: 0.3s;
+    display: block;
+    float: left;
+    font-weight: 700;
+    margin-top: 15px;
+    letter-spacing: 2px;
+
+    &:hover {
+      filter: brightness(80%);
+      color: $gold;
+      text-decoration: none;
+    }
+  }
+
+  h4 {
+    color: $gold;
+    font-weight: 800;
+  }
+}
+
+
+/* 
+  Post archive tiles
+ */
+@mixin post-archive-tiles {
+  a {
+    text-decoration: none !important;
+  }
+
+  &__tile {
+    h3 {
+      color: $yellow;
+    }
+  }
+
+  &__tile-img {
+    height: 230px;
+    overflow: hidden;
+
+    img {
+      height: 100%;
+    } 
+  }
+}

@@ -1,0 +1,19 @@
+.about-content-area-1 {
+  @include blurb;
+
+   &__top-heading {
+    color: $blue;
+    font-weight: 700;
+  }
+}
+.about-content-area-2 {
+  @include left-cropped-image-section;
+}
+
+.about-cta {
+  @include cta-section;
+}
+
+.about-content-area-3 {
+  @include color-cropped-section;
+}

@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/admin
 /storage/*.key
 /vendor
 .env
@@ -10,4 +11,3 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 .history
-public/admin/wp-config.php

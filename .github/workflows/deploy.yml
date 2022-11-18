@@ -1,0 +1,35 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Copy Files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "./*"
+          target: "/var/www/tmp"
+      - name: Move files, install dependencies, setup .env
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: cd /var/www;
+            rm -rf cdg;
+            mv tmp cdg;
+            chown -R www-data:www-data cdg;
+            find cdg -type f -exec chmod 644 {};
+            find cdg -type d -exec chmod 755 {};
+            composer install --no-dev;
+            npm install;
+            mv .env.example .env;
+            php artisan key:generate;
+            npm run prod;

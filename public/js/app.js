@@ -13729,7 +13729,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(42);
+module.exports = __webpack_require__(52);
 
 
 /***/ }),
@@ -13741,16 +13741,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_js__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__about_js__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__markets_js__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__nav_js__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__single_market_js__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__single_capability_js__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__capabilities_js__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__projects_js__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__nav_js__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__single_market_js__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__single_capability_js__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__capabilities_js__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__single_project_js__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__news_js__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__team_js__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__join_our_team_js__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__contact__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__history__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__single_team__ = __webpack_require__(51);
 
 /**
  * First we will load all of this project's JavaScript dependencies
  */
 __webpack_require__(12);
 __webpack_require__(36);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13777,7 +13801,7 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages'
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
     }).done(function (data) {
       window.home_data = data.find(function (page) {
         return page.slug === 'home';
@@ -13791,7 +13815,7 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages'
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
     }).done(function (data) {
       window.about_data = data.find(function (page) {
         return page.slug === 'about';
@@ -13805,7 +13829,7 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages'
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
     }).done(function (data) {
       window.markets_data = data.find(function (page) {
         return page.slug === 'markets';
@@ -13819,7 +13843,7 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages'
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
     }).done(function (data) {
       window.capabilities_data = data.find(function (page) {
         return page.slug === 'capabilities';
@@ -13833,7 +13857,7 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/markets_post'
+      url: '/admin/wp-json/wp/v2/markets_post?per_page=100'
     }).done(function (data) {
       window.markets_posts = data;
     });
@@ -13845,9 +13869,23 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/capabilities_post'
+      url: '/admin/wp-json/wp/v2/capabilities_post?per_page=100'
     }).done(function (data) {
       window.capabilities_posts = data;
+    });
+  }
+
+  function fetchProjectsData() {
+    if (window.projects_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
+    }).done(function (data) {
+      window.projects_data = data.find(function (page) {
+        return page.slug === 'projects';
+      });
     });
   }
 
@@ -13857,9 +13895,87 @@ __webpack_require__(36);
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/projects_post?_embed'
+      url: '/admin/wp-json/wp/v2/projects_post?_embed&per_page=100'
     }).done(function (data) {
       window.projects_posts = data;
+    });
+  }
+
+  function fetchNewsPostData() {
+    if (window.news_posts) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/news_post?_embed&per_page=100'
+    }).done(function (data) {
+      window.news_posts = data;
+    });
+  }
+
+  function fetchTeamPostData() {
+    if (window.team_posts) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/team_members?_embed&per_page=100'
+    }).done(function (data) {
+      window.team_posts = data;
+    });
+  }
+
+  function fetchJoinOurTeamData() {
+    if (window.join_our_team_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
+    }).done(function (data) {
+      window.join_our_team_data = data.find(function (page) {
+        return page.slug === 'join-our-team';
+      });
+    });
+  }
+
+  function fetchContactPostData() {
+    if (window.contact_posts) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/contact_locations?_embed&per_page=100'
+    }).done(function (data) {
+      window.contact_posts = data;
+    });
+  }
+
+  function fetchContactPageData() {
+    if (window.contact_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
+    }).done(function (data) {
+      window.contact_data = data.find(function (page) {
+        return page.slug === 'contact-us';
+      });
+    });
+  }
+
+  function fetchHistoryData() {
+    if (window.history_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100'
+    }).done(function (data) {
+      window.history_data = data.find(function (page) {
+        return page.slug === 'our-history';
+      });
     });
   }
 
@@ -13883,17 +13999,55 @@ __webpack_require__(36);
       });
     } else if (page.indexOf('markets/') > -1) {
       return Promise.all([fetchProjectsPostData(), fetchMarketPostData()]).then(function () {
-        Object(__WEBPACK_IMPORTED_MODULE_4__single_market_js__["a" /* populateSingleMarket */])();
+        Object(__WEBPACK_IMPORTED_MODULE_5__single_market_js__["a" /* populateSingleMarket */])();
       });
     } else if (page === '/capabilities') {
-      console.log('a');
       return Promise.all([fetchCapabilitiesPostData(), fetchCapabilitiesData()]).then(function () {
-        Object(__WEBPACK_IMPORTED_MODULE_6__capabilities_js__["a" /* populateCapabilities */])();
+        Object(__WEBPACK_IMPORTED_MODULE_7__capabilities_js__["a" /* populateCapabilities */])();
       });
     } else if (page.indexOf('capabilities/') > -1) {
-      console.log('b');
       return Promise.all([fetchProjectsPostData(), fetchCapabilitiesPostData()]).then(function () {
-        Object(__WEBPACK_IMPORTED_MODULE_5__single_capability_js__["a" /* populateSingleCapability */])();
+        Object(__WEBPACK_IMPORTED_MODULE_6__single_capability_js__["a" /* populateSingleCapability */])();
+      });
+    } else if (page === '/projects') {
+      localStorage.clear();
+      localStorage.setItem("projects-sort", "az");
+      return Promise.all([fetchProjectsPostData(), fetchProjectsData(), fetchMarketPostData(), fetchCapabilitiesPostData()]).then(function () {
+        Promise.all([Object(__WEBPACK_IMPORTED_MODULE_3__projects_js__["b" /* populateProjectsContentArea1 */])(), Object(__WEBPACK_IMPORTED_MODULE_3__projects_js__["c" /* populateProjectsTiles */])(), Object(__WEBPACK_IMPORTED_MODULE_3__projects_js__["a" /* populateFilters */])()]);
+      });
+    } else if (page.indexOf('projects/') > -1) {
+      return Promise.all([fetchProjectsPostData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_8__single_project_js__["a" /* populateSingleProject */])();
+      });
+    } else if (page === '/news') {
+      localStorage.clear();
+      localStorage.setItem("news-sort", "newfirst");
+      return Promise.all([fetchNewsPostData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_9__news_js__["b" /* populateNewsTiles */])();
+      });
+    } else if (page.indexOf('news/') > -1) {
+      return Promise.all([fetchNewsPostData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_9__news_js__["c" /* populateSingleNews */])();
+      });
+    } else if (page === "/team") {
+      return Promise.all([fetchTeamPostData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_10__team_js__["a" /* populateTeam */])();
+      });
+    } else if (page.indexOf('team/') > -1) {
+      return Promise.all([fetchTeamPostData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_14__single_team__["a" /* populateSingleTeam */])();
+      });
+    } else if (page === "/join-our-team") {
+      return Promise.all([fetchJoinOurTeamData(), fetchMarketPostData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_11__join_our_team_js__["a" /* populateJoinOurTeam */])();
+      });
+    } else if (page === "/contact") {
+      return Promise.all([fetchContactPostData(), fetchContactPageData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_12__contact__["b" /* populateContactTiles */])(), Object(__WEBPACK_IMPORTED_MODULE_12__contact__["a" /* populateContactPageData */])();
+      });
+    } else if (page === "/our-history") {
+      return Promise.all([fetchHistoryData()]).then(function () {
+        Object(__WEBPACK_IMPORTED_MODULE_13__history__["a" /* populateHistoryPageData */])();
       });
     }
   };
@@ -13902,9 +14056,16 @@ __webpack_require__(36);
     Build the nav menu
    */
   var buildNavMenu = function buildNavMenu() {
-    return Promise.all([fetchMarketPostData(), fetchCapabilitiesPostData()]).then(function () {
-      Promise.all([Object(__WEBPACK_IMPORTED_MODULE_3__nav_js__["b" /* populateMarketsSubmenu */])(), Object(__WEBPACK_IMPORTED_MODULE_3__nav_js__["d" /* toggleMarketsMenu */])(), fetchMarketPostData(), Object(__WEBPACK_IMPORTED_MODULE_3__nav_js__["a" /* populateCapabilitiesSubmenu */])(), Object(__WEBPACK_IMPORTED_MODULE_3__nav_js__["c" /* toggleCapabilitiesMenu */])()]);
+    return Promise.all([fetchMarketPostData(), fetchCapabilitiesPostData(), fetchProjectsPostData()]).then(function () {
+      Promise.all([Object(__WEBPACK_IMPORTED_MODULE_4__nav_js__["b" /* populateMarketsSubmenu */])(), Object(__WEBPACK_IMPORTED_MODULE_4__nav_js__["e" /* toggleMarketsMenu */])(), fetchMarketPostData(), Object(__WEBPACK_IMPORTED_MODULE_4__nav_js__["a" /* populateCapabilitiesSubmenu */])(), Object(__WEBPACK_IMPORTED_MODULE_4__nav_js__["d" /* toggleCapabilitiesMenu */])(), Object(__WEBPACK_IMPORTED_MODULE_4__nav_js__["c" /* toggleAboutMenu */])(), Object(__WEBPACK_IMPORTED_MODULE_4__nav_js__["f" /* toggleMobileMenu */])()]);
     });
+  };
+
+  /* 
+    Add listeners for page interactions
+  */
+  var setupEventListeners = function setupEventListeners() {
+    return Promise.all([Object(__WEBPACK_IMPORTED_MODULE_3__projects_js__["d" /* projectFilterListeners */])(), Object(__WEBPACK_IMPORTED_MODULE_9__news_js__["a" /* newsListeners */])()]);
   };
 
   $(document).ready(function () {
@@ -13912,7 +14073,8 @@ __webpack_require__(36);
     buildNavMenu().then(function () {
       return setupPageData();
     }).then(function () {
-      console.log('page data done');
+      return setupEventListeners();
+    }).then(function () {
       $('.loading-overlay').fadeOut('slow');
     });
   });
@@ -39185,15 +39347,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /* harmony export (immutable) */ __webpack_exports__["c"] = populateHomeCareerSection;
 function populateHomeSlider() {
     return new Promise(function (resolve, reject) {
-        var acf = window.home_data.acf;
+        var _ref = window.home_data || {},
+            acf = _ref.acf;
+
+        var _ref2 = window || {},
+            projects_posts = _ref2.projects_posts;
 
         // Populate the dang slider
 
-        acf.slider_images.forEach(function (slide) {
-            $('.home-slider__slick').append('\n          <div class=\'home-slide-container\'>\n            <img src=' + slide.image + ' />\n            <div class="slide-meta">\n              <p>' + slide.title + '</p>\n              <p>' + slide.description + '</p>\n            </div>\n          </div>\n        ');
+
+        acf && acf.slider_images && acf.slider_images.forEach(function (slide) {
+            var thisSliderProject = projects_posts && slide.link && slide.link.ID && projects_posts.find(function (post) {
+                return post.id === slide.link.ID;
+            });
+            var thisSliderProjectSlug = thisSliderProject && thisSliderProject.slug;
+
+            console.log({ thisSliderProject: thisSliderProject, thisSliderProjectSlug: thisSliderProjectSlug, projects_posts: projects_posts, slide: slide });
+
+            $('.home-slider__slick').append("\n          <div class='home-slide-container'>\n            <a href=" + (thisSliderProjectSlug ? "/projects/" + thisSliderProjectSlug : "#") + ">\n            <img src=" + (slide && slide.image ? slide.image : "") + " />\n            <div class=\"slide-meta\">\n              <p>" + (slide && slide.title ? slide.title : "") + "</p>\n              <p>" + (slide && slide.description ? slide.description : "") + "</p>\n            </div>\n            </a>\n          </div>\n        ");
         });
 
-        $('.home-slider__slick').slick();
+        $('.home-slider__slick').slick({
+            autoplay: true,
+            autoplaySpeed: 5000,
+            dots: true
+        });
 
         $('.home-slider__heading').html(window.home_data.acf.heading);
 
@@ -39204,40 +39382,40 @@ function populateHomeSlider() {
 function populateAfterSliderBlurb() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var after_slider_blurb = window.home_data.acf.after_slider_blurb;
+        var _ref3 = window.home_data.acf || {},
+            after_slider_blurb = _ref3.after_slider_blurb;
 
-
-        $('.home-slider-blurb__title').html(after_slider_blurb.title);
-        $('.home-slider-blurb__content').html(after_slider_blurb.content);
-        $('.home-slider-blurb__content').prepend('<h2 class="home-slider-blurb__heading">' + after_slider_blurb.heading + '</h2>');
+        $('.home-slider-blurb__title').html(after_slider_blurb && after_slider_blurb.title ? after_slider_blurb.title : "");
+        $('.home-slider-blurb__content').html(after_slider_blurb && after_slider_blurb.content ? after_slider_blurb.content : "");
+        $('.home-slider-blurb__content').prepend("<h2 class=\"home-slider-blurb__heading\">" + (after_slider_blurb && after_slider_blurb.heading ? after_slider_blurb.heading : "") + "</h2>");
     });
 }
 
 function populateHomeContentSection1() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var first_content_area = window.home_data.acf.first_content_area;
+        var _ref4 = window.home_data.acf || {},
+            first_content_area = _ref4.first_content_area;
 
-
-        $('.home-content-area-1__heading').html(first_content_area.heading);
-        $(first_content_area.content).insertAfter($('.home-content-area-1__heading'));
-        $('.home-content-area-1__image').append('<img src=' + first_content_area.image + ' />');
-        $('.home-content-area-1__button').html(first_content_area.button_text);
-        $('.home-content-area-1__button').attr('href', first_content_area.button_link);
+        $('.home-content-area-1__heading').html(first_content_area && first_content_area.heading ? first_content_area.heading : "");
+        $(first_content_area && first_content_area.content ? first_content_area.content : "").insertAfter($('.home-content-area-1__heading'));
+        $('.home-content-area-1__image').append("<img src=" + (first_content_area && first_content_area.image ? first_content_area.image : "") + " />");
+        $('.home-content-area-1__button').html(first_content_area && first_content_area.button_text ? first_content_area.button_text : "");
+        $('.home-content-area-1__button').attr('href', first_content_area && first_content_area.button_link ? first_content_area.button_link : "");
     });
 }
 
 function populateHomeContentSection2() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var second_content_area = window.home_data.acf.second_content_area;
+        var _ref5 = window.home_data.acf || {},
+            second_content_area = _ref5.second_content_area;
 
-
-        $('.home-content-area-2__heading').html(second_content_area.heading);
-        $(second_content_area.content).insertAfter($('.home-content-area-2__heading'));
-        $('.home-content-area-2__image').append('<img src=' + second_content_area.image + ' />');
-        $('.home-content-area-2__button').html(second_content_area.button_text);
-        $('.home-content-area-2__button').attr('href', second_content_area.button_link);
+        $('.home-content-area-2__heading').html(second_content_area && second_content_area.heading ? second_content_area.heading : "");
+        $(second_content_area && second_content_area.content ? second_content_area.content : "").insertAfter($('.home-content-area-2__heading'));
+        $('.home-content-area-2__image').append("<img src=" + (second_content_area && second_content_area.image ? second_content_area.image : "") + " />");
+        $('.home-content-area-2__button').html(second_content_area && second_content_area.button_text ? second_content_area.button_text : "");
+        $('.home-content-area-2__button').attr('href', second_content_area && second_content_area.button_link ? second_content_area.button_link : "");
     });
 }
 
@@ -39245,14 +39423,15 @@ function populateHomeMarketsSection() {
     return new Promise(function (resolve, reject) {
         var _window = window,
             markets_posts = _window.markets_posts;
-        var markets = window.home_data.acf.markets;
 
+        var _ref6 = window.home_data.acf || {},
+            markets = _ref6.markets;
 
-        $('.home-markets__heading').html(markets.heading);
-        $('.home-markets__content').html(markets.blurb);
+        $('.home-markets__heading').html(markets && markets.heading ? markets.heading : "");
+        $('.home-markets__content').html(markets && markets.blurb ? markets.blurb : "");
 
-        markets_posts.forEach(function (markets_post) {
-            $('.home-markets__cards').append('\n                <div class="col-6 py-3 my-2 home-markets__card">\n                    <a href="/markets/' + markets_post.id + '">\n                        ' + markets_post.title.rendered + '\n                    </a>\n                </div>\n            ');
+        markets_posts && markets_posts.forEach(function (markets_post) {
+            $('.home-markets__cards').append("\n                <div class=\"col-12 col-lg-6 py-3 my-2 home-markets__card\">\n                    <a href=\"/markets/" + (markets_post && markets_post.slug ? markets_post.slug : "") + "\">\n                        " + (markets_post && markets_post.title && markets_post.title.rendered ? markets_post.title.rendered : "") + "\n                    </a>\n                </div>\n            ");
         });
     });
 }
@@ -39261,14 +39440,15 @@ function populateHomeCapabilitiesSection() {
     return new Promise(function (resolve, reject) {
         var _window2 = window,
             capabilities_posts = _window2.capabilities_posts;
-        var capabilities = window.home_data.acf.capabilities;
 
+        var _ref7 = window.home_data.acf || {},
+            capabilities = _ref7.capabilities;
 
-        $('.home-capabilities__heading').html(capabilities.heading);
-        $('.home-capabilities__content').html(capabilities.blurb);
+        $('.home-capabilities__heading').html(capabilities && capabilities.heading ? capabilities.heading : "");
+        $('.home-capabilities__content').html(capabilities && capabilities.blurb ? capabilities.blurb : "");
 
-        capabilities_posts.forEach(function (capabilities_post) {
-            $('.home-capabilities__cards').append('\n                <div class="col-6 py-3 my-2 home-capabilities__card">\n                    <a href="/capabilities/' + capabilities_post.id + '">\n                        ' + capabilities_post.title.rendered + '\n                    </a>\n                </div>\n            ');
+        capabilities_posts && capabilities_posts.forEach(function (capabilities_post) {
+            $('.home-capabilities__cards').append("\n                <div class=\"col-12 col-lg-6 py-3 my-2 home-capabilities__card\">\n                    <a href=\"/capabilities/" + capabilities_post.slug + "\">\n                        " + (capabilities_post && capabilities_post.title && capabilities_post.title.rendered ? capabilities_post.title.rendered : "") + "\n                    </a>\n                </div>\n            ");
         });
     });
 }
@@ -39279,20 +39459,20 @@ function populateHomeProjectsSection() {
             projects_posts = _window3.projects_posts;
 
 
-        projects_posts.forEach(function (projects_post) {
-            $('.home-projects__cards').append('\n                <div class="col-6 col-md-4 home-projects__card">\n                    <a href="/projects/' + projects_post.id + '">\n                        <img class=\'mb-3\' src="' + projects_post._embedded['wp:featuredmedia'][0].source_url + '" alt="" />\n                        <p>' + projects_post.title.rendered + '</p>\n                    </a>\n                </div>\n            ');
+        projects_posts && projects_posts.slice(0, 6).forEach(function (projects_post) {
+            $('.home-projects__cards').append("\n                <div class=\"col-12 col-sm-6 col-lg-4 home-projects__card\">\n                    <a href=\"/projects/" + (projects_post && projects_post.slug ? projects_post.slug : "") + "\">\n                        <div style=\"background-image: url(" + (projects_post && projects_post._embedded && projects_post._embedded['wp:featuredmedia'] && projects_post._embedded['wp:featuredmedia'][0] && projects_post._embedded['wp:featuredmedia'][0].source_url ? projects_post._embedded['wp:featuredmedia'][0].source_url : "") + ");\" class=\"project-image-container\"></div>\n                        <p>" + (projects_post && projects_post.title && projects_post.title.rendered ? projects_post.title.rendered : "") + "</p>\n                    </a>\n                </div>\n            ");
         });
     });
 }
 
 function populateHomeCareerSection() {
     return new Promise(function (resolve, reject) {
-        var careers = window.home_data.acf.careers;
+        var _ref8 = window.home_data.acf || {},
+            careers = _ref8.careers;
 
+        $('.home-careers__button').attr('href', careers && careers.link_target ? careers.link_target : "").html(careers && careers.link_text ? careers.link_text : "");
 
-        $('.home-careers__button').attr('href', careers.link_target).html(careers.link_text);
-
-        $('.home-careers__heading').html(careers.heading);
+        $('.home-careers__heading').html(careers && careers.heading ? careers.heading : "");
     });
 }
 
@@ -39309,51 +39489,52 @@ function populateHomeCareerSection() {
 function populateAboutContentArea1() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var content_area_1 = window.about_data.acf.content_area_1;
+        var _ref = window.about_data.acf || {},
+            content_area_1 = _ref.content_area_1;
 
-
-        $('.about-content-area-1__top-heading').html(content_area_1.heading);
-        $('.about-content-area-1__title').html(content_area_1.title);
-        $('.about-content-area-1__content').html(content_area_1.content);
-        $('.about-content-area-1__content').prepend('<h2 class="about-content-area-1__heading">' + content_area_1.content_heading + '</h2>');
+        $('.about-content-area-1__top-heading').html(content_area_1 && content_area_1.heading ? content_area_1.heading : "");
+        $('.about-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
+        $('.about-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
+        $('.about-content-area-1__content').prepend('<h2 class="about-content-area-1__heading">' + (content_area_1 && content_area_1.content_heading ? content_area_1.content_heading : "") + '</h2>');
     });
 }
 
 function populateAboutCTA() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var cta_1 = window.about_data.acf.cta_1;
+        var _ref2 = window.about_data.acf || {},
+            cta_1 = _ref2.cta_1;
 
-
-        $('.about-cta__heading').html(cta_1.heading);
-        $('.about-cta__image').append('<img src=' + cta_1.image + ' />');
-        $('.about-cta__button').html(cta_1.button_text);
-        $('.about-cta__button').attr('href', cta_1.button_link);
+        $('.about-cta__heading').html(cta_1 && cta_1.heading ? cta_1.heading : "");
+        $('.about-cta__image').append('<img src=' + (cta_1 && cta_1.image ? cta_1.image : "") + ' />');
+        $('.about-cta__button').html(cta_1 && cta_1.button_text ? cta_1.button_text : "");
+        $('.about-cta__button').attr('href', cta_1 && cta_1.button_link ? cta_1.button_link : "");
     });
 }
 
 function populateAboutContentArea2() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var content_area_2 = window.about_data.acf.content_area_2;
+        var _ref3 = window.about_data.acf || {},
+            content_area_2 = _ref3.content_area_2;
 
-
-        $('.about-content-area-2__heading').html(content_area_2.heading);
-        $('<p>' + content_area_2.content + '</p>').insertAfter($('.about-content-area-2__heading'));
-        $('.about-content-area-2__image').append('<img src=' + content_area_2.image + ' />');
-        $('.about-content-area-2__button').html(content_area_2.button_text);
-        $('.about-content-area-2__button').attr('href', content_area_2.button_link);
+        $('.about-content-area-2__heading').html(content_area_2 && content_area_2.heading ? content_area_2.heading : "");
+        $('<p>' + (content_area_2 && content_area_2.content ? content_area_2.content : "") + '</p>').insertAfter($('.about-content-area-2__heading'));
+        $('.about-content-area-2__image').append('<img src=' + (content_area_2 && content_area_2.image ? content_area_2.image : "") + ' />');
+        $('.about-content-area-2__button').html(content_area_2 && content_area_2.button_text ? content_area_2.button_text : "");
+        $('.about-content-area-2__button').attr('href', content_area_2 && content_area_2.button_link && content_area_2.button_link.url ? content_area_2.button_link.url : "");
+        console.log(content_area_2.button_link);
     });
 }
 
 function populateAboutContentArea3() {
     return new Promise(function (resolve, reject) {
-        var content_area_3 = window.about_data.acf.content_area_3;
+        var _ref4 = window.about_data.acf || {},
+            content_area_3 = _ref4.content_area_3;
 
+        $('.about-content-area-3__button').attr('href', content_area_3 && content_area_3.button_target ? content_area_3.button_target : "").html(content_area_3 && content_area_3.button_text ? content_area_3.button_text : "");
 
-        $('.about-content-area-3__button').attr('href', content_area_3.button_target).html(content_area_3.button_text);
-
-        $('.about-content-area-3__heading').html(content_area_3.heading);
+        $('.about-content-area-3__heading').html(content_area_3 && content_area_3.heading ? content_area_3.heading : "");
     });
 }
 
@@ -39368,12 +39549,12 @@ function populateAboutContentArea3() {
 function populateMarketsContentArea1() {
     return new Promise(function (resolve, reject) {
         //  Populate the dang content area
-        var content_area_1 = window.markets_data.acf.content_area_1;
+        var _ref = window.markets_data.acf || {},
+            content_area_1 = _ref.content_area_1;
 
-
-        $('.markets-content-area-1__title').html(content_area_1.title);
-        $('.markets-content-area-1__content').html(content_area_1.content);
-        $('.markets-content-area-1__content').prepend('<h2 class="markets-content-area-1__heading">' + content_area_1.header + '</h2>');
+        $('.markets-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
+        $('.markets-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
+        $('.markets-content-area-1__content').prepend('<h2 class="markets-content-area-1__heading">' + (content_area_1 && content_area_1.header ? content_area_1.header : "") + '</h2>');
     });
 }
 
@@ -39383,15 +39564,22 @@ function populateMarketsTiles() {
             markets_posts = _window.markets_posts;
 
 
-        markets_posts.forEach(function (marketPost) {
-            var acf = marketPost.acf;
-            var preview_content = acf.preview_content;
-            var content = preview_content.content,
-                image = preview_content.image;
-            var title = marketPost.title;
+        markets_posts && markets_posts.forEach(function (marketPost) {
+            var _ref2 = marketPost || {},
+                acf = _ref2.acf;
 
+            var _ref3 = acf || {},
+                preview_content = _ref3.preview_content;
 
-            $('.markets-tiles__wrapper').append('\n                <a class=\'col-12 col-sm-6 col-md-4\' href="/markets/' + title.rendered.replace(/ /g, '-').toLowerCase() + '">\n                    <div class="markets-tiles__tile px-3 mb-5">\n                        <div class="markets-tiles__tile-img">\n                            <img src="' + image + '" alt="Markets Preview Image" />\n                        </div>\n                        <h3 class=\'mt-3\'>' + title.rendered + '</h3>\n                        <p>' + content + '</p>\n                    </div>\n                </a>\n            ');
+            var _ref4 = preview_content || {},
+                content = _ref4.content,
+                image = _ref4.image;
+
+            var _ref5 = marketPost || {},
+                title = _ref5.title,
+                slug = _ref5.slug;
+
+            $('.markets-tiles__wrapper').append('\n                <a class=\'col-12 col-sm-6 col-lg-4\' href="/markets/' + (slug || "") + '">\n                    <div class="markets-tiles__tile px-3 mb-5">\n                        <div class="markets-tiles__tile-img" style="background-image: url(' + (image || "") + ');" />\n                            \n                        <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                        <p>' + (content || "") + '</p>\n                    </div>\n                </a>\n            ');
         });
     });
 }
@@ -39401,51 +39589,192 @@ function populateMarketsTiles() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["d"] = toggleMarketsMenu;
-/* harmony export (immutable) */ __webpack_exports__["b"] = populateMarketsSubmenu;
-/* harmony export (immutable) */ __webpack_exports__["c"] = toggleCapabilitiesMenu;
-/* harmony export (immutable) */ __webpack_exports__["a"] = populateCapabilitiesSubmenu;
-function toggleMarketsMenu() {
-    $('#markets').mouseover(function () {
-        $('#markets ul').fadeIn();
-    });
+/* harmony export (immutable) */ __webpack_exports__["b"] = populateProjectsContentArea1;
+/* harmony export (immutable) */ __webpack_exports__["c"] = populateProjectsTiles;
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateFilters;
+/* harmony export (immutable) */ __webpack_exports__["d"] = projectFilterListeners;
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-    $('#markets').mouseleave(function () {
-        $('#markets ul').fadeOut();
-    });
-}
+function populateProjectsContentArea1() {
+    return new Promise(function (resolve, reject) {
+        //  Populate the dang content area
+        var _ref = window.projects_data.acf || {},
+            content_area_1 = _ref.content_area_1;
 
-function populateMarketsSubmenu() {
-    var _window = window,
-        markets_posts = _window.markets_posts;
-
-
-    $('<ul></ul>').insertAfter('#markets > a');
-
-    markets_posts.forEach(function (marketPost) {
-        $('#markets ul').append('\n            <li>\n                <a href="/markets/' + marketPost.title.rendered.replace(/ /g, '-').toLowerCase() + '">\n                    <div class=\'h5 nav-text\'>' + marketPost.title.rendered + '</div>\n                </a>\n            </li>\n        ');
+        $('.projects-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
+        $('.projects-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
+        $('.projects-content-area-1__content').prepend('<h2 class="projects-content-area-1__heading">' + (content_area_1 && content_area_1.header ? content_area_1.header : "") + '</h2>');
     });
 }
 
-function toggleCapabilitiesMenu() {
-    $('#capabilities').mouseover(function () {
-        $('#capabilities ul').fadeIn();
-    });
+function populateProjectsTiles() {
+    var market = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var capability = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var searchQuery = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-    $('#capabilities').mouseleave(function () {
-        $('#capabilities ul').fadeOut();
+    return new Promise(function (resolve, reject) {
+        var _window = window,
+            projects_posts = _window.projects_posts;
+
+
+        var sort = localStorage.getItem('projects-sort');
+
+        projects_posts && projects_posts.sort(function (a, b) {
+            if (sort === "az") {
+                if (a.title.rendered > b.title.rendered) {
+                    return 1;
+                }if (a.title.rendered < b.title.rendered) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            } else {
+                if (a.title.rendered < b.title.rendered) {
+                    return 1;
+                }if (a.title.rendered > b.title.rendered) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            }
+        }).forEach(function (projectPost) {
+            var _ref2 = projectPost || {},
+                acf = _ref2.acf;
+
+            var _ref3 = acf || {},
+                preview_content = _ref3.preview_content;
+
+            var _ref4 = preview_content || {},
+                content = _ref4.content,
+                image = _ref4.image;
+
+            var _ref5 = projectPost || {},
+                title = _ref5.title,
+                slug = _ref5.slug;
+
+            // If we passed a market or capability filter, get the market or capability post and check if this post is featured
+
+
+            var marketPost = window.markets_posts.find(function (marketPost) {
+                return marketPost.title.rendered.replace("#038;", "") === market;
+            });
+            var marketProjects = marketPost && marketPost.acf.featured_projects ? marketPost.acf.featured_projects : null;
+
+            var capabilityPost = window.capabilities_posts.find(function (capabilityPost) {
+                return capabilityPost.title.rendered.replace("#038;", "") === capability;
+            });
+            var capabilityProjects = capabilityPost && capabilityPost.acf.featured_projects ? capabilityPost.acf.featured_projects : null;
+
+            var projectIsInMarket = market === "All Markets" || market === null ? true : marketProjects ? marketProjects.findIndex(function (marketProject) {
+                return parseInt(marketProject) === projectPost.id;
+            }) > -1 : false;
+            var projectIsInCapability = capability === "All Capabilities" || capability === null ? true : capabilityProjects ? capabilityProjects.findIndex(function (capabilityProject) {
+                return parseInt(capabilityProject) === projectPost.id;
+            }) > -1 : false;
+
+            var projectIsInSearch = searchQuery === null || searchQuery === "" ? true : projectPost.title.rendered.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+
+            if (projectIsInMarket && projectIsInCapability && projectIsInSearch) {
+                $('.projects-tiles__wrapper').append('\n                <a class=\'col-12 col-sm-6 col-lg-4\' href="/projects/' + slug + '">\n                    <div class="projects-tiles__tile mb-5">\n                        <div class="projects-tiles__tile-img" style="background-image: url(' + (image || "") + ');"  />\n                          \n                        <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                        <p>' + (content || "") + '</p>\n                    </div>\n                </a>\n            ');
+            }
+        });
     });
 }
 
-function populateCapabilitiesSubmenu() {
-    var _window2 = window,
-        capabilities_posts = _window2.capabilities_posts;
+function populateFilters() {
+    return new Promise(function (resolve, reject) {
+        var _window2 = window,
+            markets_posts = _window2.markets_posts,
+            capabilities_posts = _window2.capabilities_posts;
 
+        // Set the selected filter as all markets posts
 
-    $('<ul></ul>').insertAfter('#capabilities > a');
+        $(".markets-select .dropdown-placeholder").append('<div>All Markets</div>');
+        $(".capabilities-select .dropdown-placeholder").append('<div>All Capabilities</div>');
 
-    capabilities_posts.forEach(function (capabilitiesPost) {
-        $('#capabilities ul').append('\n            <li>\n                <a href="/capabilities/' + capabilitiesPost.title.rendered.replace(/ /g, '-').toLowerCase() + '">\n                    <div class=\'h5 nav-text\'>' + capabilitiesPost.title.rendered + '</div>\n                </a>\n            </li>\n        ');
+        markets_posts && [{ slug: "all", title: { rendered: "All Markets" } }].concat(_toConsumableArray(markets_posts)).forEach(function (post, index) {
+            return post && post.title && post.title.rendered && $(".markets-options").append('<div data-marketslug=' + (post.slug || "") + ' class="col-12 p-3 ' + (index === 0 && "selected-option") + '">' + post.title.rendered + '</div>');
+        });
+
+        capabilities_posts && [{ slug: "all", title: { rendered: "All Capabilities" } }].concat(_toConsumableArray(capabilities_posts)).forEach(function (post, index) {
+            return post && post.title && post.title.rendered && $(".capabilities-options").append('<div data-capabilitieslug=' + (post.slug || "") + ' class="col-12 p-3 ' + (index === 0 && "selected-option") + '">' + post.title.rendered + '</div>');
+        });
+    });
+}
+
+function projectFilterListeners() {
+    $('.filter-button').click(function () {
+        $('.filter-button').toggleClass('selected');
+        $(".projects-filters").toggleClass('hidden');
+    });
+
+    $('.search-button').click(function () {
+        $('.search-button').toggleClass('selected');
+        $(".search-filter").toggleClass('hidden');
+    });
+
+    $('.markets-select').click(function () {
+        $('.markets-select .bi-caret-down-fill').toggleClass('hidden');
+        $(".markets-select .bi-caret-up-fill").toggleClass('hidden');
+        $('.markets-options').toggleClass('hidden');
+    });
+
+    $('.capabilities-select').click(function () {
+        $('.capabilities-select .bi-caret-down-fill').toggleClass('hidden');
+        $(".capabilities-select .bi-caret-up-fill").toggleClass('hidden');
+        $('.capabilities-options').toggleClass('hidden');
+    });
+
+    $(".markets-options > div").click(function (e) {
+
+        $(".markets-options > div").removeClass("selected-option");
+        $(e.currentTarget).addClass('selected-option');
+        $(".markets-select .dropdown-placeholder").html('<div>' + $(e.currentTarget).html() + '</div>');
+        $('projects-filters__selected-filters').append('<div class="col-12>' + $(e.currentTarget).text() + '</div>');
+
+        localStorage.setItem("markets_filter", $(e.currentTarget).text());
+
+        $(".projects-tiles__wrapper").empty();
+        populateProjectsTiles(localStorage.getItem("markets_filter"), localStorage.getItem("capabilities_filter"));
+    });
+
+    $(".capabilities-options > div").click(function (e) {
+
+        $(".capabilities-options > div").removeClass("selected-option");
+        $(e.currentTarget).addClass('selected-option');
+        $(".capabilities-select .dropdown-placeholder").html('<div>' + $(e.currentTarget).html() + '</div>');
+        $('projects-filters__selected-filters').append('<div class="col-12>' + $(e.currentTarget).text() + '</div>');
+
+        localStorage.setItem("capabilities_filter", $(e.currentTarget).text());
+
+        $(".projects-tiles__wrapper").empty();
+        populateProjectsTiles(localStorage.getItem("markets_filter"), localStorage.getItem("capabilities_filter"));
+    });
+
+    $(".search-filter input").on("change textInput, input", function (e) {
+        localStorage.setItem("projects_search_query", $(e.currentTarget).val());
+        $(".projects-tiles__wrapper").empty();
+        populateProjectsTiles(localStorage.getItem("markets_filter"), localStorage.getItem("capabilities_filter"), localStorage.getItem("projects_search_query"));
+    });
+
+    $(".sort-button-az").click(function (e) {
+        if (localStorage.getItem("projects-sort") !== "az") {
+            localStorage.setItem("projects-sort", "az");
+            $(e.currentTarget).toggleClass("selected");
+            $(".sort-button-za").toggleClass("selected");
+            $(".projects-tiles__wrapper").empty();
+            populateProjectsTiles(localStorage.getItem("markets_filter"), localStorage.getItem("capabilities_filter"), localStorage.getItem("projects_search_query"));
+        }
+    });
+
+    $(".sort-button-za").click(function (e) {
+        if (localStorage.getItem("projects-sort") !== "za") {
+            localStorage.setItem("projects-sort", "za");
+            $(e.currentTarget).toggleClass("selected");
+            $(".sort-button-az").toggleClass("selected");
+            $(".projects-tiles__wrapper").empty();
+            populateProjectsTiles(localStorage.getItem("markets_filter"), localStorage.getItem("capabilities_filter"), localStorage.getItem("projects_search_query"));
+        }
     });
 }
 
@@ -39454,151 +39783,637 @@ function populateCapabilitiesSubmenu() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleMarket;
-function populateSingleMarket() {
-    var _window = window,
-        markets_posts = _window.markets_posts,
-        projects_posts = _window.projects_posts;
-
-    var thisMarket = location.pathname.split('markets/')[1];
-
-    var relevantMarket = markets_posts.find(function (marketPost) {
-        return marketPost.title.rendered.replace(/ /g, '-').toLowerCase() === thisMarket;
+/* harmony export (immutable) */ __webpack_exports__["c"] = toggleAboutMenu;
+/* harmony export (immutable) */ __webpack_exports__["e"] = toggleMarketsMenu;
+/* harmony export (immutable) */ __webpack_exports__["f"] = toggleMobileMenu;
+/* harmony export (immutable) */ __webpack_exports__["b"] = populateMarketsSubmenu;
+/* harmony export (immutable) */ __webpack_exports__["d"] = toggleCapabilitiesMenu;
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateCapabilitiesSubmenu;
+function toggleAboutMenu() {
+  if (window.innerWidth > 1020) {
+    $('#company').mouseover(function () {
+      $('#company ul').fadeIn();
     });
 
-    var acf = relevantMarket.acf;
-    var content_area_1 = acf.content_area_1,
-        content_area_2 = acf.content_area_2,
-        cta = acf.cta,
-        featured_projects = acf.featured_projects;
-
-
-    var cta_project = window.projects_posts.find(function (post) {
-        return post.id === parseInt(cta.featured_project_cta_select);
+    $('#company').mouseleave(function () {
+      $('#company ul').fadeOut();
     });
-
-    $('.single-market-content-area-1__top-heading').text(relevantMarket.title.rendered);
-    $('.single-market-content-area-1__title').text(content_area_1.title);
-    $('.single-market-content-area-1__content').html(content_area_1.content);
-
-    $('.single-market-content-area-2__header').text(content_area_2.header);
-    $('.single-market-content-area-2__title').text(content_area_2.subheader);
-    $('.single-market-content-area-2__content').html(content_area_2.content);
-
-    $('.single-market-cta__image').append('<img src=' + cta_project._embedded['wp:featuredmedia'][0].source_url + ' />');
-    $('.single-market-cta__heading').text(cta.title);
-    $('.single-market-cta__content').append('<p><strong>' + cta_project.title.rendered + '</strong></p>');
-
-    $('.single-market-cta__project-link').attr('href', '/projects/' + cta_project.title.rendered.replace(/ /g, '-').toLowerCase());
-
-    var related_projects = featured_projects.map(function (projectID) {
-        return projects_posts.find(function (projectPost) {
-            return projectPost.id === parseInt(projectID);
-        }) || null;
-    }).forEach(function (projects_post) {
-        $('.single-market-project-tiles__cards-container').append('\n          <div class="col-12 col-md-6 mb-5 home-projects__card">\n              <a href="/projects/' + projects_post.id + '">\n                  <img class=\'mb-3\' src="' + projects_post._embedded['wp:featuredmedia'][0].source_url + '" alt="" />\n                  <p>' + projects_post.title.rendered + '</p>\n              </a>\n          </div>\n      ');
-    });
+  }
 }
+
+function toggleMarketsMenu() {
+  if (window.innerWidth > 1020) {
+    $('#markets').mouseover(function () {
+      $('#markets ul').fadeIn();
+    });
+
+    $('#markets').mouseleave(function () {
+      $('#markets ul').fadeOut();
+    });
+  }
+}
+
+function toggleMobileMenu() {
+  $('.mobile-menu-button').click(function () {
+    $('#nav').toggle();
+    $(".mobile-menu-button__open").toggle();
+    $(".mobile-menu-button__closed").toggle();
+  });
+}
+
+function populateMarketsSubmenu() {
+  var _window = window,
+      markets_posts = _window.markets_posts;
+
+
+  $('<ul></ul>').insertAfter('#markets > a');
+
+  markets_posts.forEach(function (marketPost) {
+    $('#markets ul').append('\n            <li>\n                <a href="/markets/' + marketPost.slug + '">\n                    <div class=\'h5 nav-text\'>' + marketPost.title.rendered + '</div>\n                </a>\n            </li>\n        ');
+  });
+}
+
+function toggleCapabilitiesMenu() {
+  if (window.innerWidth > 1020) {
+    $('#capabilities').mouseover(function () {
+      $('#capabilities ul').fadeIn();
+    });
+
+    $('#capabilities').mouseleave(function () {
+      $('#capabilities ul').fadeOut();
+    });
+  }
+}
+
+function populateCapabilitiesSubmenu() {
+  var _window2 = window,
+      capabilities_posts = _window2.capabilities_posts;
+
+
+  $('<ul></ul>').insertAfter('#capabilities > a');
+
+  capabilities_posts.forEach(function (capabilitiesPost) {
+    $('#capabilities ul').append('\n            <li>\n                <a href="/capabilities/' + capabilitiesPost.slug + '">\n                    <div class=\'h5 nav-text\'>' + capabilitiesPost.title.rendered + '</div>\n                </a>\n            </li>\n        ');
+  });
+}
+
+// export function toggleProjectsMenu() {
+//   $('#projects').mouseover(function() {
+//     $('#projects ul').fadeIn();
+//   });
+
+//   $('#projects').mouseleave(function() {
+//     $('#projects ul').fadeOut();
+//   });
+// }
+
+// export function populateProjectsSubmenu() {
+//     const { projects_posts } = window;
+
+//     $('<ul></ul>').insertAfter('#projects > a'); 
+
+//     projects_posts.forEach(projectsPost => {
+//         $('#projects ul').append(`
+//             <li>
+//                 <a href="/projects/${projectsPost.slug}">
+//                     <div class='h5 nav-text'>${projectsPost.title.rendered}</div>
+//                 </a>
+//             </li>
+//         `);
+//     });
+// }
 
 /***/ }),
 /* 42 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleMarket;
+function populateSingleMarket() {
+  var _window = window,
+      markets_posts = _window.markets_posts,
+      projects_posts = _window.projects_posts;
+
+  var thisMarket = location.pathname.split('markets/')[1];
+
+  var relevantMarket = markets_posts.find(function (marketPost) {
+    return marketPost.slug === thisMarket;
+  });
+
+  var _ref = relevantMarket || {},
+      acf = _ref.acf;
+
+  var _ref2 = acf || {},
+      content_area_1 = _ref2.content_area_1,
+      content_area_2 = _ref2.content_area_2,
+      cta = _ref2.cta,
+      featured_projects = _ref2.featured_projects;
+
+  console.log({});
+
+  var cta_project = cta && window.projects_posts.find(function (post) {
+    return post.id === parseInt(cta.featured_project_cta_select);
+  });
+
+  if (relevantMarket) {
+    $('.single-market-content-area-1__top-heading').html(relevantMarket.title.rendered);
+  }
+
+  if (content_area_1) {
+    $('.single-market-content-area-1__title').html(content_area_1.title || "");
+    $('.single-market-content-area-1__content').html(content_area_1.content || "");
+  }
+
+  if (content_area_2) {
+    $('.single-market-content-area-2__header').html(content_area_2.header || "");
+    $('.single-market-content-area-2__title').html(content_area_2.subheader || "");
+    $('.single-market-content-area-2__content').html(content_area_2.content || "");
+  }
+
+  console.log({ content_area_2: content_area_2 });
+
+  if (!content_area_2 || !content_area_2.subheader && !content_area_2.header && !content_area_2.content) {
+    $('.single-market-content-area-2').hide();
+  }
+
+  if (cta_project) {
+    $('.single-market-cta__image').append('<img src=' + (cta_project && cta_project._embedded && cta_project._embedded['wp:featuredmedia'] && cta_project._embedded['wp:featuredmedia'][0] && cta_project._embedded['wp:featuredmedia'][0].source_url ? cta_project._embedded['wp:featuredmedia'][0].source_url : "") + ' />');
+  }
+
+  if (cta && cta.title) {
+    $('.single-market-cta__heading').html(cta.title);
+  }
+
+  // if(cta_project && cta_project.title && cta_project.title.rendered) {
+  //   $('.single-market-cta__content').append(`<p><strong>${cta_project.title.rendered}</strong></p>`);
+  //   $('.single-market-cta__project-link').attr('href', `/projects/${cta_project.slug}`);
+  // }
+
+  var related_projects = featured_projects && featured_projects.map(function (projectID) {
+    return projects_posts.find(function (projectPost) {
+      return projectPost.id === parseInt(projectID);
+    }) || null;
+  }).forEach(function (projects_post) {
+    $('.single-market-project-tiles__cards-container').append('\n          <div class="col-12 col-md-6 mb-5 home-projects__card">\n              <a href="/projects/' + (projects_post && projects_post.slug ? projects_post.slug : "#") + '">\n              <div style="background-image: url(' + (projects_post && projects_post._embedded && projects_post._embedded['wp:featuredmedia'] && projects_post._embedded['wp:featuredmedia'][0] && projects_post._embedded['wp:featuredmedia'][0].source_url ? projects_post._embedded['wp:featuredmedia'][0].source_url : "") + ');" class="project-image-container"></div>\n                  <p>' + (projects_post && projects_post.title && projects_post.title.rendered ? projects_post.title.rendered : "") + '</p>\n              </a>\n          </div>\n      ');
+  });
+}
 
 /***/ }),
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */
+/* 43 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleCapability;
+function populateSingleCapability() {
+  var _window = window,
+      capabilities_posts = _window.capabilities_posts,
+      projects_posts = _window.projects_posts;
+
+  var thisCapability = location.pathname.split('capabilities/')[1];
+
+  var relevantCapability = capabilities_posts && capabilities_posts.find(function (marketPost) {
+    return marketPost.slug === thisCapability;
+  });
+
+  var _ref = relevantCapability || {},
+      acf = _ref.acf;
+
+  var _ref2 = acf || {},
+      content_area_1 = _ref2.content_area_1,
+      featured_projects = _ref2.featured_projects;
+
+  // const cta_project = window.projects_posts && window.projects_posts
+  //   .find(post => post.id === parseInt(cta.featured_project_cta_select));
+
+  if (relevantCapability && relevantCapability.title && relevantCapability.title.rendered) {
+    $('.single-capability-content-area-1__top-heading').html(relevantCapability.title.rendered);
+  }
+
+  if (content_area_1 && content_area_1.title) {
+    $('.single-capability-content-area-1__title').html(content_area_1.title);
+  }
+
+  if (content_area_1 && content_area_1.content) {
+    $('.single-capability-content-area-1__content').html(content_area_1.content);
+  }
+
+  // if(content_area_2 && content_area_2.header) {
+  //   $('.single-capability-content-area-2__header').html(content_area_2.header);
+  // }
+
+  // if(content_area_2 && content_area_2.subheader) {
+  //   $('.single-capability-content-area-2__title').html(content_area_2.subheader);
+  // }
+
+  // if(content_area_2 && content_area_2.content) {
+  //   $('.single-capability-content-area-2__content').html(content_area_2.content);
+  // }
+
+  // $('.single-capability-cta__image').append(`<img src=${cta_project && cta_project._embedded ? cta_project._embedded['wp:featuredmedia'][0].source_url : ""} />`);
+  // $('.single-capability-cta__heading').html(cta && cta.title ? cta.title : "");
+  // $('.single-capability-cta__content').append(`<p><strong>${cta_project && cta_project.title && cta_project.title.rendered ? cta_project.title.rendered : ""}</strong></p>`);
+
+  // if(cta_project && cta_project.title && cta_project.title.rendered) {
+  //   $('.single-capability-cta__project-link').attr('href', `/projects/${cta_project.slug}`);
+
+  // }
+
+  var related_projects = featured_projects && featured_projects.map(function (projectID) {
+    return projects_posts.find(function (projectPost) {
+      return projectPost.id === parseInt(projectID);
+    }) || null;
+  }).forEach(function (projects_post) {
+    $('.single-capability-project-tiles__cards-container').append('\n          <div class="col-12 col-md-6 mb-5 home-projects__card">\n              <a href="/projects/' + (projects_post && projects_post.slug ? projects_post.slug : "#") + '">\n              <div style="background-image: url(' + (projects_post && projects_post._embedded && projects_post._embedded['wp:featuredmedia'] && projects_post._embedded['wp:featuredmedia'][0] && projects_post._embedded['wp:featuredmedia'][0].source_url ? projects_post._embedded['wp:featuredmedia'][0].source_url : "") + ');" class="project-image-container"></div>\n                  <p>' + (projects_post && projects_post.title && projects_post.title.rendered ? projects_post.title.rendered : "") + '</p>\n              </a>\n          </div>\n      ');
+  });
+}
+
+/***/ }),
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = populateCapabilities;
 function populateCapabilities() {
     //  Populate the dang content area
-    var content_area_1 = window.capabilities_data.acf.content_area_1;
+    var _ref = window.capabilities_data.acf || {},
+        content_area_1 = _ref.content_area_1;
 
-
-    $('.capabilities-content-area-1__title').html(content_area_1.title);
-    $('.capabilities-content-area-1__content').html(content_area_1.content);
-    $('.capabilities-content-area-1__content').prepend('<h2 class="capabilities-content-area-1__heading">' + content_area_1.header + '</h2>');
+    $('.capabilities-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
+    $('.capabilities-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
+    $('.capabilities-content-area-1__content').prepend('<h2 class="capabilities-content-area-1__heading">' + (content_area_1 && content_area_1.header ? content_area_1.header : "") + '</h2>');
 
     var _window = window,
         capabilities_posts = _window.capabilities_posts;
 
 
-    capabilities_posts.forEach(function (capabilitiesPost) {
-        var acf = capabilitiesPost.acf;
-        var preview_content = acf.preview_content;
-        var content = preview_content.content,
-            image = preview_content.image;
-        var title = capabilitiesPost.title;
+    capabilities_posts && capabilities_posts.forEach(function (capabilitiesPost) {
+        var _ref2 = capabilitiesPost || {},
+            acf = _ref2.acf;
 
+        var _ref3 = acf || {},
+            preview_content = _ref3.preview_content;
 
-        $('.capabilities-tiles__wrapper').append('\n          <a class=\'col-12 col-sm-6 col-md-4\' href="/capabilities/' + title.rendered.replace(/ /g, '-').toLowerCase() + '">\n              <div class="capabilities-tiles__tile px-3 mb-5">\n                  <div class="capabilities-tiles__tile-img">\n                      <img src="' + image + '" alt="Capabilities Preview Image" />\n                  </div>\n                  <h3 class=\'mt-3\'>' + title.rendered + '</h3>\n                  <p>' + content + '</p>\n              </div>\n          </a>\n      ');
+        var _ref4 = preview_content || {},
+            content = _ref4.content,
+            image = _ref4.image;
+
+        var _ref5 = capabilitiesPost || {},
+            title = _ref5.title,
+            slug = _ref5.slug;
+
+        $('.capabilities-tiles__wrapper').append('\n          <a class=\'col-12 col-sm-6 col-lg-4\' href="/capabilities/' + (slug || "") + '">\n              <div class="capabilities-tiles__tile px-3 mb-5">\n                  <div class="capabilities-tiles__tile-img" style="background-image: url(' + (image || "") + ');" />\n                  <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                  <p>' + (content || "") + '</p>\n              </div>\n          </a>\n      ');
     });
 }
 
 /***/ }),
-/* 54 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleCapability;
-function populateSingleCapability() {
-    var _window = window,
-        capabilities_posts = _window.capabilities_posts,
-        projects_posts = _window.projects_posts;
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleProject;
+function populateSingleProject() {
+  var _window = window,
+      projects_posts = _window.projects_posts;
 
-    var thisCapability = location.pathname.split('capabilities/')[1];
+  var thisProject = location.pathname.split('projects/')[1];
 
-    var relevantCapability = capabilities_posts.find(function (marketPost) {
-        return marketPost.title.rendered.replace(/ /g, '-').toLowerCase() === thisCapability;
-    });
+  var relevantProject = projects_posts && projects_posts.find(function (projectPost) {
+    return projectPost.slug === thisProject;
+  });
 
-    var acf = relevantCapability.acf;
-    var content_area_1 = acf.content_area_1,
-        content_area_2 = acf.content_area_2,
-        cta = acf.cta,
-        featured_projects = acf.featured_projects;
+  var _ref = relevantProject || {},
+      acf = _ref.acf;
+
+  var _ref2 = acf || {},
+      content_area_1 = _ref2.content_area_1,
+      content_area_2 = _ref2.content_area_2;
+
+  $('.single-project-content-area-1__top-heading').html(relevantProject && relevantProject.title && relevantProject.title.rendered ? relevantProject.title.rendered : "");
+  $('.single-project-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
+  $('.single-project-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
+
+  $('.single-project-content-area-2__header').html(content_area_2 && content_area_2.header ? content_area_2.header : "");
+  $('.single-project-content-area-2__title').html(content_area_2 && content_area_2.subheader ? content_area_2.subheader : "");
+  $('.single-project-content-area-2__content').html(content_area_2 && content_area_2.content ? content_area_2.content : "");
+}
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = populateNewsTiles;
+/* harmony export (immutable) */ __webpack_exports__["c"] = populateSingleNews;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return newsListeners; });
+function populateNewsTiles() {
+    var newsSort = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "newfirst";
+    var searchFilter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+    return new Promise(function (resolve, reject) {
+        var _window = window,
+            news_posts = _window.news_posts;
 
 
-    console.log({ acf: acf });
+        news_posts && news_posts.sort(function (a, b) {
+            if (newsSort === "oldfirst") {
+                if (new Date(a.acf.date_published).getTime() > new Date(b.acf.date_published).getTime()) {
+                    return 1;
+                } else if (new Date(a.acf.date_published).getTime() < new Date(b.acf.date_published).getTime()) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            } else {
+                {
+                    if (new Date(a.acf.date_published).getTime() < new Date(b.acf.date_published).getTime()) {
+                        return 1;
+                    } else if (new Date(a.acf.date_published).getTime() > new Date(b.acf.date_published).getTime()) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }).forEach(function (newsPost) {
+            var _ref = newsPost || {},
+                acf = _ref.acf,
+                title = _ref.title,
+                slug = _ref.slug;
 
-    var cta_project = window.projects_posts.find(function (post) {
-        return post.id === parseInt(cta.featured_project_cta_select);
-    });
+            var _ref2 = acf || {},
+                preview_content = _ref2.preview_content,
+                date_published = _ref2.date_published;
 
-    $('.single-capability-content-area-1__top-heading').text(relevantCapability.title.rendered);
-    $('.single-capability-content-area-1__title').text(content_area_1.title);
-    $('.single-capability-content-area-1__content').html(content_area_1.content);
+            var image = newsPost && newsPost._embedded && newsPost._embedded['wp:featuredmedia'] && newsPost._embedded['wp:featuredmedia'][0] && newsPost._embedded['wp:featuredmedia'][0].source_url ? newsPost._embedded['wp:featuredmedia'][0].source_url : "";
 
-    $('.single-capability-content-area-2__header').text(content_area_2.header);
-    $('.single-capability-content-area-2__title').text(content_area_2.subheader);
-    $('.single-capability-content-area-2__content').html(content_area_2.content);
+            var newsIsInSearch = searchFilter === null || searchFilter === "" ? true : newsPost.title.rendered.toLowerCase().indexOf(searchFilter.toLowerCase()) > -1;
 
-    $('.single-capability-cta__image').append('<img src=' + cta_project._embedded['wp:featuredmedia'][0].source_url + ' />');
-    $('.single-capability-cta__heading').text(cta.title);
-    $('.single-capability-cta__content').append('<p><strong>' + cta_project.title.rendered + '</strong></p>');
-
-    $('.single-capability-cta__project-link').attr('href', '/projects/' + cta_project.title.rendered.replace(/ /g, '-').toLowerCase());
-
-    var related_projects = featured_projects.map(function (projectID) {
-        return projects_posts.find(function (projectPost) {
-            return projectPost.id === parseInt(projectID);
-        }) || null;
-    }).forEach(function (projects_post) {
-        $('.single-capability-project-tiles__cards-container').append('\n          <div class="col-12 col-md-6 mb-5 home-projects__card">\n              <a href="/projects/' + projects_post.id + '">\n                  <img class=\'mb-3\' src="' + projects_post._embedded['wp:featuredmedia'][0].source_url + '" alt="" />\n                  <p>' + projects_post.title.rendered + '</p>\n              </a>\n          </div>\n      ');
+            if (newsIsInSearch) {
+                $('.news-tiles__wrapper').append("\n                <a class='col-12 col-sm-6 col-lg-4' href=\"/news/" + slug + "\">\n                    <div class=\"news-tiles__tile mb-5\">\n                        <div class=\"news-tiles__tile-img\" style=\"background-image: url(" + (image || "") + ");\"  />\n                        <h3 class='mt-3'>" + (title && title.rendered ? title.rendered : "") + "</h3>\n                        " + (date_published ? "<small>" + date_published + "</small>" : null) + "\n                        <p>" + (preview_content || "") + "</p>\n                    </div>\n                </a>\n            ");
+            }
+        });
     });
 }
+
+function populateSingleNews() {
+    return new Promise(function (resolve, reject) {
+        var _window2 = window,
+            news_posts = _window2.news_posts;
+
+        var thisNews = location.pathname.split('news/')[1];
+
+        var relevantNews = news_posts.find(function (newstPost) {
+            return newstPost.slug === thisNews;
+        });
+
+        var _ref3 = relevantNews || {},
+            acf = _ref3.acf;
+
+        var _ref4 = acf || {},
+            main_content = _ref4.main_content,
+            subtitle = _ref4.subtitle,
+            date_published = _ref4.date_published,
+            category = _ref4.category;
+
+        var _ref5 = relevantNews || {},
+            title = _ref5.title;
+
+        var image = relevantNews && relevantNews._embedded && relevantNews._embedded['wp:featuredmedia'] && relevantNews._embedded['wp:featuredmedia'][0] && relevantNews._embedded['wp:featuredmedia'][0].source_url ? relevantNews._embedded['wp:featuredmedia'][0].source_url : "";
+
+        if (title && title.rendered) {
+            $('.single-news__title').html(title.rendered);
+        }
+
+        if (main_content) {
+            $(".single-news__content").html(main_content);
+        }
+
+        if (subtitle) {
+            $(".single-news__subtitle").html(subtitle);
+        }
+
+        if (category) {
+            $(".single-news__category").html(category);
+        }
+
+        if (date_published) {
+            $(".single-news__date").html(date_published);
+        }
+
+        if (image) {
+            $(".single-news__image").css("background-image", "url(" + image + ")");
+        }
+    });
+}
+
+var newsListeners = function newsListeners() {
+    $(".news-sort__button").click(function (e) {
+        if ($(e.currentTarget).hasClass("newfirst") && localStorage.getItem("news-sort") !== "newfirst" || $(e.currentTarget).hasClass("oldfirst") && localStorage.getItem("news-sort") !== "oldfirst") {
+            $(".news-sort__button").toggleClass("selected");
+            $(".news-tiles__wrapper").empty();
+            localStorage.setItem("news-sort", $(e.currentTarget).hasClass("newfirst") ? "newfirst" : "oldfirst");
+            populateNewsTiles(localStorage.getItem("news-sort"), localStorage.getItem("news_search_query"));
+        }
+    });
+
+    $(".news-search-filter input").on("change textInput, input", function (e) {
+        localStorage.setItem("news_search_query", $(e.currentTarget).val());
+        $(".news-tiles__wrapper").empty();
+        populateNewsTiles(localStorage.getItem("news-sort"), localStorage.getItem("news_search_query"));
+    });
+};
+
+/***/ }),
+/* 47 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateTeam;
+function populateTeam() {
+    var _window = window,
+        team_posts = _window.team_posts;
+
+
+    team_posts && team_posts.forEach(function (teamPost) {
+        var _ref = teamPost || {},
+            title = _ref.title,
+            acf = _ref.acf,
+            _embedded = _ref._embedded,
+            slug = _ref.slug;
+
+        var image = _embedded ? _embedded["wp:featuredmedia"][0].source_url : "";
+
+        var _ref2 = acf || {},
+            position = _ref2.position;
+
+        $('.team-tiles__wrapper').append("\n        \n                <a href=\"/team/" + slug + "\" class=\"team-tiles__tile px-3 mb-5 col-12 col-sm-4 col-lg-3\">\n                    <div class=\"team-tiles__tile-img\" style=\"background-image: url(" + image + ");\" />\n                    <small class='mt-3'>" + (title && title.rendered ? title.rendered : "") + "</small>\n                    <small>" + (position || "") + "</small>\n                </a>\n    \n        ");
+    });
+}
+
+/***/ }),
+/* 48 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return populateJoinOurTeam; });
+var populateJoinOurTeam = function populateJoinOurTeam() {
+    return new Promise(function (resolve, reject) {
+        var _window = window,
+            join_our_team_data = _window.join_our_team_data;
+        var acf = join_our_team_data.acf;
+        var header = acf.header,
+            main_content = acf.main_content,
+            hero_image = acf.hero_image;
+
+
+        if (hero_image) {
+            $(".join-our-team__hero").css("background-image", "url(" + hero_image + ")");
+        }
+
+        if (header) {
+            $(".join-our-team__header").text(header);
+        }
+
+        if (main_content) {
+            $(".join-our-team__content").html(main_content);
+        }
+
+        var _window2 = window,
+            markets_posts = _window2.markets_posts;
+
+
+        if (markets_posts) {
+            markets_posts.map(function (post) {
+                return $(".join-our-team form select[name='expertise']").append("<option value=" + post.title.rendered + ">" + post.title.rendered + "</option>");
+            });
+        }
+    });
+};
+
+/***/ }),
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = populateContactTiles;
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateContactPageData;
+function populateContactTiles() {
+    return new Promise(function (resolve, reject) {
+        var _window = window,
+            contact_posts = _window.contact_posts;
+
+
+        contact_posts && contact_posts.forEach(function (contactPost) {
+            var _ref = contactPost || {},
+                acf = _ref.acf,
+                _embedded = _ref._embedded,
+                title = _ref.title;
+
+            var _ref2 = acf || {},
+                address = _ref2.address,
+                fax_number = _ref2.fax_number,
+                telephone_number = _ref2.telephone_number;
+
+            var image = _embedded ? _embedded["wp:featuredmedia"][0].source_url : "";
+
+            $('.contact-tiles__wrapper').append("\n                <div class='col-12 col-sm-6 col-lg-4'>\n                    <div class=\"contact-tiles__tile px-3 mb-5\">\n                        <div class=\"contact-tiles__tile-img\" style=\"background-image: url(" + (image || "") + ");\" />\n                            \n                        <p class='mt-3 contact-tiles__tile-title'>" + (title && title.rendered ? title.rendered : "") + "</p>\n                        <p>" + (address || "") + "</p>\n                        <p><span class=\"mr-2 contact-tiles__tile-number\">T</span>" + (telephone_number || "") + "</p>\n                        <p><span class=\"mr-2 contact-tiles__tile-number\">F</span>" + (fax_number || "") + "</p>\n                    </div>\n                </div>\n            ");
+        });
+    });
+}
+
+function populateContactPageData() {
+    return new Promise(function (resolve, reject) {
+        var _window2 = window,
+            contact_data = _window2.contact_data;
+
+        var _ref3 = contact_data || {},
+            acf = _ref3.acf;
+
+        var _ref4 = acf || {},
+            form_header = _ref4.form_header,
+            form_subheader = _ref4.form_subheader,
+            form_blurb = _ref4.form_blurb;
+
+        $('.contact-us__form-title').text(form_header);
+        $('.contact-us__form-subtitle').text(form_subheader);
+        $('.contact-us__form-content').text(form_blurb);
+    });
+}
+
+/***/ }),
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateHistoryPageData;
+function populateHistoryPageData() {
+    return new Promise(function (resolve, reject) {
+        var _window = window,
+            history_data = _window.history_data;
+
+        var _ref = history_data || {},
+            acf = _ref.acf,
+            _embedded = _ref._embedded;
+
+        var _ref2 = acf || {},
+            subheader = _ref2.subheader,
+            overview_title = _ref2.overview_title,
+            main_content = _ref2.main_content,
+            image = _ref2.image;
+
+        $('.history__heading-subheader').html('<div>' + subheader + '</div>');
+        $('.history__heading-image').css('background-image', 'url(' + image + ')');
+        $('.history__overview-title').text(overview_title);
+        $('.history__overview-content').html(main_content);
+    });
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleTeam;
+function populateSingleTeam() {
+  var _window = window,
+      team_posts = _window.team_posts;
+
+  var thisTeamMember = window.location.pathname.split('team/')[1];
+
+  var relevantTeamMember = team_posts.find(function (teamPost) {
+    return teamPost.slug === thisTeamMember;
+  });
+
+  var _ref = relevantTeamMember || {},
+      acf = _ref.acf,
+      _embedded = _ref._embedded,
+      title = _ref.title;
+
+  var _ref2 = acf || {},
+      position = _ref2.position,
+      location = _ref2.location,
+      telephone = _ref2.telephone,
+      email = _ref2.email,
+      main_content = _ref2.main_content;
+
+  var image = _embedded ? _embedded["wp:featuredmedia"][0].source_url : "";
+
+  $(".team-member__sidebar-image").attr('src', image);
+
+  $('.team-member__sidebar-location').text(location || "");
+  $('.team-member__sidebar-telephone').text(telephone || "");
+  $('.team-member__sidebar-email').text(email || "");
+
+  $('.team-member__content-title').text(title && title.rendered ? title.rendered : "");
+  $('.team-member__content-position').text(position || "");
+  $('.team-member__content-content').html(main_content || "");
+}
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

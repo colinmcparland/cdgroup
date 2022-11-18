@@ -6,7 +6,8 @@
 @section('content')
   @include('partials.header')
   @include('partials.capabilities-post.content-area-1')
-  @include('partials.capabilities-post.content-area-2')
-  @include('partials.capabilities-post.cta')
+  {{-- @include('partials.capabilities-post.content-area-2') --}}
+  {{-- @include('partials.capabilities-post.cta') --}}
   @include('partials.capabilities-post.project-tiles')
+  @include('partials.footer')
 @stop

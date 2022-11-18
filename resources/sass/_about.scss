@@ -4,10 +4,26 @@
    &__top-heading {
     color: $blue;
     font-weight: 700;
+    
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    }
+  }
+
+  &__heading {
+    @media screen and (max-width: 768px) {
+      font-size: $h3;
+    }
   }
 }
 .about-content-area-2 {
   @include left-cropped-image-section;
+
+  &__heading {
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    }
+  }
 }
 
 .about-cta {

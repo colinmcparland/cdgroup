@@ -9,10 +9,20 @@
     overflow: hidden;
     right: 12%;
     transform: skew(-21deg);
-    min-height: 100vh !important;
 
     img {
       transform: skew(21deg);
+    }
+
+    @media screen and (max-width: 768px) {
+      right: unset;
+      transform: skew(0);
+      margin-bottom: 25px;
+
+      img {
+        transform: skew(0);
+        width: 100%;
+      }
     }
   }
 
@@ -98,7 +108,9 @@
   }
 
   &::before {
-    content: '';
+    @media screen and (min-width: 1020px) {
+      content: '';
+    }
     width: 33%;
     height: 100%;
     background-color: #fff;
@@ -120,7 +132,6 @@
     overflow: hidden;
     right: 12%;
     transform: skew(-21deg);
-    height: 70vh;
 
     img {
       transform: skew(21deg);
@@ -154,17 +165,34 @@
       text-decoration: none;
     }
   }
+
+  @media screen and (max-width: 1020px) {
+    margin-bottom: 0;
+    &__image {
+      right: unset;
+      transform: skew(0);
+
+      img {
+        transform: skew(0);
+      }
+    }
+  }
 }
 
 /* 
   Tiles that contain project posts or another post type
  */
 @mixin project-tiles {
-  &__card {
-    img {
-      max-width: 100%;
-    }
 
+  &__card {
+
+    .project-image-container {
+      background-size: cover;
+      background-position: center;
+      height: 230px;
+      width: 100%;
+    }
+    
     a {
       text-decoration: none !important;
     }
@@ -205,6 +233,7 @@
   Post archive tiles
  */
 @mixin post-archive-tiles {
+
   a {
     text-decoration: none !important;
   }
@@ -216,11 +245,10 @@
   }
 
   &__tile-img {
-    height: 230px;
     overflow: hidden;
-
-    img {
-      height: 100%;
-    } 
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
   }
 }

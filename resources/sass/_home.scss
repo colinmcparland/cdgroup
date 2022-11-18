@@ -4,12 +4,20 @@
   &__heading {
     color: $blue;
     font-weight: 700;
+
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    } 
   }
 }
 
 .home-slide-container {
   position: relative;
   max-height: 80vh;
+
+  @media screen and (max-width: 768px) {
+    max-height: 45vh;
+  }
 
   .slide-meta {
     bottom: 0;
@@ -32,10 +40,22 @@
 
 .home-slider-blurb {
   @include blurb;
+
+  @media screen and (max-width: 768px) {
+    &__heading, h4 {
+      margin-bottom: 25px;
+    }
+  }
 }
 
 .home-content-area-1 {
   @include left-cropped-image-section;
+
+  &__heading {
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    }
+  }
 }
 
 
@@ -47,18 +67,34 @@
     overflow: hidden;
     left: 12%;
     transform: skew(21deg);
-    min-height: 100vh !important;
 
     img {
-      left: -25%;
-      position: absolute;
+      margin-left: -25%;
       transform: skew(-21deg);
     }
+
+    @media screen and (max-width: 768px) {
+      left: unset;
+      transform: skew(0);
+  
+      img {
+        transform: skew(0);
+        width: 100%;
+        margin-left: unset;
+        padding-top: 25px;
+      }
+    }
   }
+
+
 
   &__heading {
     color: $blue;
     font-weight: 700;
+
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    }
   }
 
   &__button {
@@ -82,6 +118,12 @@
 }
 
 .home-markets, .home-capabilities {
+
+  &__cards {
+    @media screen and (max-width: 768px) {
+      padding: 25px 15px 0 15px;
+    }
+  }
   &__card {
     border-left: 4px solid $yellow;
     transition: 0.3s;
@@ -111,6 +153,10 @@
   &__heading {
     font-weight: 700;
     color: $blue;
+
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    }
   }
 
   h4 {

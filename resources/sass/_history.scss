@@ -1,0 +1,28 @@
+.history__heading {
+    &-image {
+        height: 300px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    &-subheader {
+        font-size: $h3;
+    }
+}
+
+.history__overview {
+    &-title {
+        font-size: $h4;
+        color: $gold;
+        text-transform: uppercase;
+        font-weight: 800;
+    }
+
+    &-content {
+        h2 {
+            color: $blue;
+            font-weight: 800;
+        }
+    }
+}

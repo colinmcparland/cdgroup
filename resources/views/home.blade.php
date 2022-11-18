@@ -13,4 +13,5 @@
   @include('partials.home.capabilities-area')
   @include('partials.home.projects-area')
   @include('partials.home.careers')
+  @include('partials.footer')
 @stop

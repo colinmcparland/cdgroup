@@ -1,0 +1,54 @@
+.contact-header {
+        color: $blue;
+        font-size: 2.9rem;
+        font-weight: 800;
+}
+
+.contact-us {
+        &__form {
+                &-title {
+                        color: $blue;
+                        font-size: 2.9rem;
+                        font-weight: 800;   
+                }
+
+                &-subtitle {
+                        color: $gold;
+                        font-size: $h2;
+                        font-weight: 800;
+                }
+
+                &-content {
+                        font-size: $h3;
+                }
+
+                small {
+                        text-transform: uppercase;
+                        font-weight: 800;
+                }
+
+                input[type="text"], input[type="email"], textarea {
+                        padding: 8px;
+                        outline-color: $gold;
+                        border: 2px solid #ccc;
+                }
+        }
+
+}
+
+.contact-tiles {
+        @include post-archive-tiles;
+
+        &__tile {
+                &-title {
+                        font-weight: 800;
+                        color: #000;
+                        font-family: $muli;
+                }
+
+                &-number {
+                        font-weight: 800;
+                        color: $gold;
+                }
+        }
+      }

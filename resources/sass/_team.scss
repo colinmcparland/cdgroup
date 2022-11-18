@@ -1,0 +1,24 @@
+.team-tiles {
+    @include post-archive-tiles;
+    &__tile-img {
+          height: 350px;
+    }
+
+    a {
+          color: #000;
+    }
+
+    small:not(:last-child) {
+          font-weight: 800;
+          display: block;
+          text-transform: uppercase;
+    }
+  }
+
+  .team-title {
+   
+        color: $blue;
+        font-size: 2.9rem;
+        font-weight: 800;
+  
+  }

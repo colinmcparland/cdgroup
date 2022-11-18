@@ -9,4 +9,5 @@
   @include('partials.about.cta-1')
   @include('partials.about.content-area-2')
   @include('partials.about.content-area-3')
+  @include('partials.footer')
 @stop

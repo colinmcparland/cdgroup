@@ -7,4 +7,5 @@
   @include('partials.header')
   @include('partials.markets.content-area-1')
   @include('partials.markets.tiles')
+  @include('partials.footer')
 @stop

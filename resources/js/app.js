@@ -29,10 +29,19 @@ import {
 } from './markets.js';
 
 import {
+  populateProjectsContentArea1,
+  populateProjectsTiles,
+  projectFilterListeners,
+  populateFilters
+} from './projects.js';
+
+import {
   toggleMarketsMenu,
   populateMarketsSubmenu,
   toggleCapabilitiesMenu,
-  populateCapabilitiesSubmenu
+  populateCapabilitiesSubmenu,
+  toggleAboutMenu,
+  toggleMobileMenu
 } from './nav.js';
 
 import {
@@ -47,6 +56,37 @@ import {
   populateCapabilities
 } from './capabilities.js';
 
+import {
+  populateSingleProject
+} from './single-project.js';
+
+import {
+  populateNewsTiles,
+  populateSingleNews,
+  newsListeners
+} from './news.js';
+
+import {
+  populateTeam
+} from "./team.js";
+
+import {
+  populateJoinOurTeam
+} from "./join-our-team.js";
+
+import {
+  populateContactTiles,
+  populateContactPageData
+} from "./contact";
+
+import {
+  populateHistoryPageData
+} from "./history";
+
+import {
+  populateSingleTeam
+} from "./single-team";
+
 (function($) {
 
   /*
@@ -58,7 +98,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages',
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
     })
     .done(function(data) {
       window.home_data = data
@@ -72,7 +112,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages',
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
     })
     .done(function(data) {
       window.about_data = data
@@ -86,7 +126,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages',
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
     })
     .done(function(data) {
       window.markets_data = data
@@ -100,7 +140,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages',
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
     })
     .done(function(data) {
       window.capabilities_data = data
@@ -114,7 +154,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/markets_post',
+      url: '/admin/wp-json/wp/v2/markets_post?per_page=100',
     })
     .done(function(data) {
       window.markets_posts = data;
@@ -127,10 +167,24 @@ import {
     } 
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/capabilities_post',
+      url: '/admin/wp-json/wp/v2/capabilities_post?per_page=100',
     })
     .done(function(data) {
       window.capabilities_posts = data;
+    });
+  }
+
+  function fetchProjectsData() {
+    if(window.projects_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+    })
+    .done(function(data) {
+      window.projects_data = data
+        .find(page => page.slug === 'projects');
     });
   }
 
@@ -140,10 +194,91 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/projects_post?_embed',
+      url: '/admin/wp-json/wp/v2/projects_post?_embed&per_page=100',
     })
     .done(function(data) {
       window.projects_posts = data;
+    });
+  }
+
+  function fetchNewsPostData() {
+    if(window.news_posts) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/news_post?_embed&per_page=100',
+    })
+    .done(function(data) {
+      window.news_posts = data;
+    });
+  }
+
+  function fetchTeamPostData() {
+    if(window.team_posts) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/team_members?_embed&per_page=100',
+    })
+    .done(function(data) {
+      window.team_posts = data;
+    });
+  }
+
+  function fetchJoinOurTeamData() {
+    if(window.join_our_team_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+    })
+    .done(function(data) {
+      window.join_our_team_data = data
+        .find(page => page.slug === 'join-our-team');
+    });
+  }
+
+  function fetchContactPostData() {
+    if(window.contact_posts) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/contact_locations?_embed&per_page=100',
+    })
+    .done(function(data) {
+      window.contact_posts = data;
+    });
+  }
+
+  function fetchContactPageData() {
+    if(window.contact_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+    })
+    .done(function(data) {
+      window.contact_data = data
+        .find(page => page.slug === 'contact-us');
+    });
+  }
+
+  function fetchHistoryData() {
+    if(window.history_data) {
+      return Promise.resolve();
+    }
+
+    return $.ajax({
+      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+    })
+    .done(function(data) {
+      window.history_data = data
+        .find(page => page.slug === 'our-history');
     });
   }
 
@@ -153,7 +288,7 @@ import {
    */
   const setupPageData = () => {
     var page = location.pathname;
-
+    
     if(page === '/') {
       return Promise.all([
         fetchHomeData(),
@@ -205,7 +340,6 @@ import {
           populateSingleMarket();
         });
     } else if(page === '/capabilities') {
-      console.log('a');
       return Promise.all([
         fetchCapabilitiesPostData(),
         fetchCapabilitiesData()
@@ -213,13 +347,91 @@ import {
           populateCapabilities();
       });
     } else if(page.indexOf('capabilities/') > -1) {
-      console.log('b');
       return Promise.all([
         fetchProjectsPostData(),
         fetchCapabilitiesPostData()
       ])
         .then(() => {
           populateSingleCapability()
+        });
+    } else if(page === '/projects') {
+      localStorage.clear();
+      localStorage.setItem("projects-sort", "az");
+      return Promise.all([
+        fetchProjectsPostData(),
+        fetchProjectsData(),
+        fetchMarketPostData(),
+        fetchCapabilitiesPostData()
+      ])
+        .then(() => {
+          Promise.all([
+            populateProjectsContentArea1(),
+            populateProjectsTiles(),
+            populateFilters()
+          ]);
+        });
+    } else if(page.indexOf('projects/') > -1) {
+      return Promise.all([
+        fetchProjectsPostData()
+      ])
+        .then(() => {
+            populateSingleProject()
+        });
+    } else if(page === '/news') {
+      localStorage.clear();
+      localStorage.setItem("news-sort", "newfirst");
+      return Promise.all([
+        fetchNewsPostData()
+      ])
+        .then(() => {
+            populateNewsTiles()
+        });
+    } else if(page.indexOf('news/') > -1) {
+      return Promise.all([
+        fetchNewsPostData()
+      ])
+        .then(() => {
+            populateSingleNews()
+        });
+    } else if(page === "/team") {
+      return Promise.all([
+        fetchTeamPostData()
+      ])
+        .then(() => {
+            populateTeam()
+        });
+        
+    } else if(page.indexOf('team/') > -1) {
+      return Promise.all([
+        fetchTeamPostData()
+      ])
+        .then(() => {
+          populateSingleTeam()
+        });
+    }
+     else if(page === "/join-our-team") {
+      return Promise.all([
+        fetchJoinOurTeamData(),
+        fetchMarketPostData()
+      ])
+        .then(() => {
+            populateJoinOurTeam()
+        });
+    } else if(page === "/contact") {
+      return Promise.all([
+        fetchContactPostData(),
+        fetchContactPageData()
+      ])
+        .then(() => {
+           populateContactTiles(),
+           populateContactPageData()
+        });
+    } else if(page === "/our-history") {
+      return Promise.all([
+        fetchHistoryData()
+      ])
+        .then(() => {
+           populateHistoryPageData()
         });
     } 
   };
@@ -231,7 +443,8 @@ import {
   const buildNavMenu = () => {
     return Promise.all([
       fetchMarketPostData(),
-      fetchCapabilitiesPostData()
+      fetchCapabilitiesPostData(),
+      fetchProjectsPostData()
     ])
       .then(() => {
         Promise.all([
@@ -239,10 +452,22 @@ import {
           toggleMarketsMenu(),
           fetchMarketPostData(),
           populateCapabilitiesSubmenu(),
-          toggleCapabilitiesMenu()
+          toggleCapabilitiesMenu(),
+          toggleAboutMenu(),
+          toggleMobileMenu()
         ]);
       }); 
   };
+
+  /* 
+    Add listeners for page interactions
+  */
+ const setupEventListeners = () => {
+  return Promise.all([
+    projectFilterListeners(),
+    newsListeners()
+  ]);
+ };
 
   $(document).ready(function() {
 
@@ -251,7 +476,9 @@ import {
         return setupPageData();
       })
       .then(() => {
-        console.log('page data done');
+        return setupEventListeners();
+      })
+      .then(() => {
         $('.loading-overlay').fadeOut('slow');
       });
   });

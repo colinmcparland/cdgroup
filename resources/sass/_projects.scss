@@ -1,0 +1,116 @@
+.projects-content-area-1 {
+    @include blurb;
+    
+    &__title {
+      color: $yellow;
+      font-size: 2.9rem;
+      font-weight: 800;
+    }
+  }
+  
+  .projects-tiles {
+    @include post-archive-tiles;
+  }
+
+.projects-filters-buttons {
+
+  .sort-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  &__filter-button {
+    border: 3px solid #C5A25F;
+    color: #C5A25F;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #C5A25F;
+      color: #fff;
+    }
+
+    &:first-child, &.sort-button-az {
+      @media screen and (min-width: 768px) {
+        border-right: transparent;
+      }
+    }
+
+    &.selected {
+      background-color: #C5A25F;
+      color: #fff;
+    }
+  }
+}
+
+.projects-filters {
+  border: 3px solid #ccc;
+
+  &.hidden {
+    display: none;
+  }
+
+  small {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+
+  &__select-row {
+    position: relative;
+  }
+
+  &__select {
+    border: 3px solid #999;
+    cursor: pointer;
+
+    svg.hidden {
+      display: none;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    top: 100%;
+    z-index: 298;
+    background-color: #fff;
+    box-shadow: 0px 0px 8px #ccc;
+
+    &.hidden {
+      display: none;
+    }
+
+    >div {
+      cursor: pointer;
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+
+    > .selected-option {
+      cursor: not-allowed;
+      background-color: #ccc;
+    }
+  }
+}
+
+.search-filter {
+  border: 3px solid #ccc;
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 8px;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  svg {
+    position: absolute;
+    top: 12px;
+    right: 26px;
+  }
+}

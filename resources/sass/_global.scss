@@ -30,6 +30,12 @@ h5, .h5 {
   color: $darkgrey;
 }
 
+h6, .h6 {
+  font-size: $h6;
+  font-family: $muli;
+  color: $darkgrey;
+}
+
 p {
   font-size: 1rem;
   font-weight: 300;
@@ -37,6 +43,14 @@ p {
   color: $darkgrey;
   font-smoothing: antialiased;
   font-family: $mont;
+}
+
+div, small {
+  font-family: $muli;
+}
+
+body {
+  position: relative;
 }
 
 @keyframes flipper {
@@ -71,11 +85,25 @@ p {
 
 .page {
   padding-top: 125px;
+  min-height: 100vh;
+  padding-bottom: 133.3px;
+  position: relative;
+
+  @media screen and (max-width: 768px) {
+    padding-bottom: 93.6px;
+  }
+}
+
+.mobile-menu-button {
+  &__open {
+    display: none;
+  }
 }
 
 #header {
   img {
     width: 100%;
+    max-width: 350px;
   }
 
   position: fixed;
@@ -86,8 +114,35 @@ p {
   z-index: 299;
 }
 
+.mobile-menu-button {
+  display: none;
+
+  @media screen and (max-width: 1020px) {
+    display: block;
+  }
+}
+
 #nav {
   position: relative;
+
+  @media screen and (min-width: 1021px) {
+    .highlighted {
+      background-color: $blue;
+border-top: none;
+align-self: flex-start;
+padding-top: 5px;
+
+.nav-text {
+  color: #fff;
+}
+}
+
+
+  }
+
+  .mobileonly {
+    display: none;
+  }
 
   >div {
     border-top: 5px solid #fff;
@@ -102,6 +157,21 @@ p {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.7px;
+  }
+
+  @media screen and (max-width: 1020px) {
+    display: none;
+    height: 120vh;
+    overflow-y: scroll;
+
+    .mobileonly {
+      display: block;
+    }
+
+    .nav-text {
+      text-align: center;
+    }
+
   }
 
   a {
@@ -138,5 +208,24 @@ p {
         padding: 15px 30px;
       }
     }
+  }
+}
+
+#footer {
+  background-color: #3f3f3f;
+  padding: 25px;
+  position: absolute;
+  bottom: 0;
+  img {
+    width: 100%;
+    max-width: 300px;
+    filter: grayscale(100%) brightness(10);
+    
+  }
+  p {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-size: $h6;
   }
 }

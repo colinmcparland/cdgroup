@@ -7,6 +7,7 @@
   @include('partials.header')
   @include('partials.market-post.content-area-1')
   @include('partials.market-post.content-area-2')
-  @include('partials.market-post.cta')
+  {{-- @include('partials.market-post.cta') --}}
   @include('partials.market-post.project-tiles')
+  @include('partials.footer')
 @stop

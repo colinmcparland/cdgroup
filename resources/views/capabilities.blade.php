@@ -7,4 +7,5 @@
   @include('partials.header')
   @include('partials.capabilities.content-area-1')
   @include('partials.capabilities.tiles')
+  @include('partials.footer')
 @stop

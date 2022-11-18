@@ -1,0 +1,43 @@
+.team-member {
+    &__sidebar {
+        h4 {
+            color: $gold;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        svg {
+            color: $gold;
+            margin-left: -2px;
+            margin-right: 12px;
+        }
+
+        &-contacticon {
+            color: $gold;
+            font-weight: 800;
+        }
+
+        &-image {
+            max-width: 100%;
+        }
+
+        &-location {
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+    }
+
+    &__content {
+        &-title {
+            color: $blue;
+            font-size: $h2;
+            font-weight: 800;
+        }
+
+        &-position {
+            font-size: $h4;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+    }
+}

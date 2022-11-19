@@ -1,0 +1,29 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - 80:80
+    command: [nginx, '-g', 'daemon off;']
+    depends_on:
+      - frontend
+    volumes:
+     - frontend-volume:/var/www/assets:ro
+  frontend:
+    build: ./frontend
+    command: sh -c "php-fpm7; tail -f /dev/null;"
+    volumes:
+      - frontend-volume:/cdg/public:ro
+  # db:
+  #   image: mysql:8
+  #   environment:
+  #     MYSQL_PASSWORD: ${DB_PASSWORD}
+  #     MYSQL_DATABASE: ${DB_NAME}
+  #     MYSQL_USER: ${DB_USER}
+  #     MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+  #     MYSQL_ROOT_HOST: host.docker.internal
+  #   ports:
+  #     - 3307:3306
+  #   healthcheck:
+  #     test: mysqladmin ping -h 127.0.0.1 -u root --password=${DB_ROOT_PASSWORD}%
+volumes:
+  frontend-volume:

@@ -5,25 +5,47 @@ services:
       - 80:80
     command: [nginx, '-g', 'daemon off;']
     depends_on:
+      - admin
       - frontend
     volumes:
-     - frontend-volume:/var/www/assets:ro
+     - frontend-volume:/var/www/frontend/assets:ro
+     - admin-volume:/var/www/admin/assets:ro
   frontend:
     build: ./frontend
     command: sh -c "php-fpm7; tail -f /dev/null;"
     volumes:
-      - frontend-volume:/cdg/public:ro
-  # db:
-  #   image: mysql:8
-  #   environment:
-  #     MYSQL_PASSWORD: ${DB_PASSWORD}
-  #     MYSQL_DATABASE: ${DB_NAME}
-  #     MYSQL_USER: ${DB_USER}
-  #     MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-  #     MYSQL_ROOT_HOST: host.docker.internal
-  #   ports:
-  #     - 3307:3306
-  #   healthcheck:
-  #     test: mysqladmin ping -h 127.0.0.1 -u root --password=${DB_ROOT_PASSWORD}%
+      - frontend-volume:/cdg/public:rw
+  admin:
+    build: 
+      context: ./admin
+      args:
+        DEV: ${DEV}
+    command: sh -c "php-fpm7; tail -f /dev/null;"
+    volumes:
+      - admin-volume:/admin:rw
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: host.docker.internal
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: mysqladmin ping -h localhost -u root -p${DB_ROOT_PASSWORD}
+    volumes:
+      - db-volume:/var/lib/mysql:rw
 volumes:
   frontend-volume:
+  admin-volume:
+  db-volume:
+    external: true

@@ -10,14 +10,6 @@
  * @subpackage Twenty_Nineteen
  * @since 1.0.0
  */
-
-if(!is_admin()) {
-	?>
-	<script>
-		location.href = location.origin + '/admin/wp-admin';
-	</script>
-<?php
-}
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>

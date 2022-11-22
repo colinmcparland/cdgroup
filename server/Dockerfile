@@ -14,10 +14,10 @@ RUN mkdir /etc/nginx/sites-available
 RUN mkdir /etc/nginx/sites-enabled
 RUN touch /etc/nginx/sites-available
 
-# Setup frontend
-COPY frontend.nginx.conf /etc/nginx/sites-available/cdgroup-ae.com
-RUN ln -s /etc/nginx/sites-available/cdgroup-ae.com /etc/nginx/sites-enabled/cdgroup-ae.com
-
 # Setup admin
 COPY admin.nginx.conf /etc/nginx/sites-available/admin.cdgroup-ae.com
 RUN ln -s /etc/nginx/sites-available/admin.cdgroup-ae.com /etc/nginx/sites-enabled/admin.cdgroup-ae.com
+
+# Setup frontend
+COPY frontend.nginx.conf /etc/nginx/sites-available/cdgroup-ae.com
+RUN ln -s /etc/nginx/sites-available/cdgroup-ae.com /etc/nginx/sites-enabled/cdgroup-ae.com

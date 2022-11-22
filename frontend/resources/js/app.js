@@ -88,6 +88,7 @@ import {
 } from "./single-team";
 
 (function($) {
+  var url = process.env.MIX_ADMIN_URL + '/wp-json/wp/v2';
 
   /*
     Functions to fetch the content from the WP API
@@ -98,7 +99,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.home_data = data
@@ -112,7 +113,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.about_data = data
@@ -126,7 +127,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.markets_data = data
@@ -140,7 +141,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.capabilities_data = data
@@ -154,7 +155,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/markets_post?per_page=100',
+      url: url + '/markets_post?per_page=100&_embed',
     })
     .done(function(data) {
       window.markets_posts = data;
@@ -167,7 +168,7 @@ import {
     } 
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/capabilities_post?per_page=100',
+      url: url + '/capabilities_post?per_page=100&_embed',
     })
     .done(function(data) {
       window.capabilities_posts = data;
@@ -180,7 +181,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.projects_data = data
@@ -194,7 +195,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/projects_post?_embed&per_page=100',
+      url: url + '/projects_post?per_page=100&_embed',
     })
     .done(function(data) {
       window.projects_posts = data;
@@ -207,7 +208,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/news_post?_embed&per_page=100',
+      url: url + '/news_post?per_page=100&_embed',
     })
     .done(function(data) {
       window.news_posts = data;
@@ -220,7 +221,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/team_members?_embed&per_page=100',
+      url: url + '/team_members?per_page=100&_embed',
     })
     .done(function(data) {
       window.team_posts = data;
@@ -233,7 +234,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.join_our_team_data = data
@@ -247,7 +248,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/contact_locations?_embed&per_page=100',
+      url: url + '/contact_locations?per_page=100&_embed',
     })
     .done(function(data) {
       window.contact_posts = data;
@@ -260,7 +261,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.contact_data = data
@@ -274,7 +275,7 @@ import {
     }
 
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages?per_page=100',
+      url: url + '/pages?per_page=100&_embed',
     })
     .done(function(data) {
       window.history_data = data

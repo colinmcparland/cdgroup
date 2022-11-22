@@ -11,14 +11,16 @@
   <meta name='description' content="@yield('desc')"></title>
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600|Muli:400,700,800" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="{{ asset('img/favicon.png') }}"/>
+  <link rel="shortcut icon" type="image/png" href="{{ asset('img/favicon.png') }}">
   <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
   <div class="loading-overlay">
-    <img src="/admin/wp-content/uploads/2019/01/logo-2.png" alt="">
-    <div class='h4'>Loading...</div>
+    <div class="sec sec-1">
+      <span></span>
+      <span></span>
+    </div>
   </div>
   <div class="page">
     @yield('content')

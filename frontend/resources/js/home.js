@@ -9,8 +9,6 @@ export function populateHomeSlider() {
         const thisSliderProject = projects_posts && slide.link && slide.link.ID && projects_posts.find(post => post.id === slide.link.ID);
         const thisSliderProjectSlug = thisSliderProject && thisSliderProject.slug;
 
-        console.log({ thisSliderProject, thisSliderProjectSlug, projects_posts, slide });
-
         $('.home-slider__slick').append(`
           <div class='home-slide-container'>
             <a href=${thisSliderProjectSlug ? `/projects/${thisSliderProjectSlug}` : "#"}>

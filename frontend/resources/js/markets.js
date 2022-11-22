@@ -24,8 +24,7 @@ export function populateMarketsTiles() {
             $('.markets-tiles__wrapper').append(`
                 <a class='col-12 col-sm-6 col-lg-4' href="/markets/${slug || ""}">
                     <div class="markets-tiles__tile px-3 mb-5">
-                        <div class="markets-tiles__tile-img" style="background-image: url(${image || ""});" />
-                            
+                        <div class="markets-tiles__tile-img" style="background-image: url(${image || ""});"></div>
                         <h3 class='mt-3'>${title && title.rendered ? title.rendered : ""}</h3>
                         <p>${content || ""}</p>
                     </div>

@@ -82,7 +82,7 @@
 <div class="col-md-12 mb-3">
     <input type="file" name="cover-letter" />
 </div>
-<div class="mb-3 g-recaptcha" name="g-recaptcha" data-sitekey="6LfTtv4UAAAAAKE_90HViMCMFtoEaZZnFgZJU8xG"></div>
+<div class="mb-3 g-recaptcha" name="g-recaptcha" data-sitekey="<?php echo getenv("RECAPTCHA_SITE_KEY"); ?>"></div>
 <div class="col-12 mb-5">
     <input type="submit" />
 </div>

@@ -2,7 +2,7 @@
   <div class="row justify-content-between align-items-center">
     <div class="col-10 col-lg-4">
       <a href="/">
-        <img src="/admin/wp-content/uploads/2019/01/logo.png" alt="CDG ogo">
+        <img src="<?php echo getenv('ADMIN_URL') ?>/wp-content/uploads/2019/01/logo.png" alt="CDG Logo">
       </a>
     </div>
     <div class="col-2 d-lg-none justify-content-center">

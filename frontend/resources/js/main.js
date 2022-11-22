@@ -2,9 +2,11 @@ import { populateHomeSlider } from './home.js';
 
 (function($) {
 
+  var url = 'http://admin.cdgroup-ae.test/wp-json/wp/v2';
+
   function populateHome() {
     return $.ajax({
-      url: '/admin/wp-json/wp/v2/pages',
+      url: url + '/pages',
     })
     .done(function(data) {
       window.home = data

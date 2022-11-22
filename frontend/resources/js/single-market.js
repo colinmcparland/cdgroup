@@ -13,8 +13,6 @@ export function populateSingleMarket() {
     featured_projects
   } = acf || {};
 
-  console.log({})
-
   const cta_project = cta && window.projects_posts
     .find(post => post.id === parseInt(cta.featured_project_cta_select));
 
@@ -32,8 +30,6 @@ export function populateSingleMarket() {
     $('.single-market-content-area-2__title').html(content_area_2.subheader || "");
     $('.single-market-content-area-2__content').html(content_area_2.content || "");
   }
-
-  console.log({ content_area_2 });
   
   if(!content_area_2 || (!content_area_2.subheader && !content_area_2.header && !content_area_2.content)) {
     $('.single-market-content-area-2').hide();
@@ -46,11 +42,6 @@ export function populateSingleMarket() {
   if(cta && cta.title) {
     $('.single-market-cta__heading').html(cta.title);
   }
-
-  // if(cta_project && cta_project.title && cta_project.title.rendered) {
-  //   $('.single-market-cta__content').append(`<p><strong>${cta_project.title.rendered}</strong></p>`);
-  //   $('.single-market-cta__project-link').attr('href', `/projects/${cta_project.slug}`);
-  // }
 
   const related_projects = featured_projects && featured_projects
     .map(projectID => projects_posts

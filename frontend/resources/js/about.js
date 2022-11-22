@@ -33,7 +33,6 @@ export function populateAboutContentArea2() {
         $('.about-content-area-2__image').append(`<img src=${content_area_2 && content_area_2.image ? content_area_2.image : ""} />`);
         $('.about-content-area-2__button').html(content_area_2 && content_area_2.button_text ? content_area_2.button_text : "");
         $('.about-content-area-2__button').attr('href', content_area_2 && content_area_2.button_link && content_area_2.button_link.url ? content_area_2.button_link.url : "");
-        console.log(content_area_2.button_link );
     });
 }
 

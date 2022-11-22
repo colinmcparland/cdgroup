@@ -4,4 +4,4 @@
 <h2>Email</h2>
 <p>{{ $email }}</p>
 <h2>Message</h2>
-<p>{{ $message }}</p>
+<p>{{ $content }}</p>

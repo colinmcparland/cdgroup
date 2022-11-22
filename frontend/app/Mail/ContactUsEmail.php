@@ -12,7 +12,7 @@ class ContactUsEmail extends Mailable
     use Queueable, SerializesModels;
 
     public $name;
-    public $message;
+    public $content;
     public $email;
 
     /**
@@ -20,11 +20,11 @@ class ContactUsEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $message, $email)
+    public function __construct($name, $email, $content)
     {
         $this->name = $name;
         $this->email = $email;
-        $this->message = $message;
+        $this->content = $content;
     }
 
     /**
@@ -34,6 +34,6 @@ class ContactUsEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.contact-us');
+        return $this->from('CDG Website')->view('email.contact-us');
     }
 }

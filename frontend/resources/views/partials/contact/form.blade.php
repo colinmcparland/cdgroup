@@ -6,32 +6,32 @@
         <div class="col-md-8">
             <div class="contact-us__form-subtitle"></div>
             <div class="contact-us__form-content"></div>
-            <form>
-            <div class="col-12 my-3 px-0">
-                <div class="row no-gutters">
-                   
+            <form method="POST" action="/submit-contact-form" enctype="multipart/form-data"> 
+                @csrf
+                @method("PUT")
+                <div class="col-12 my-3 px-0">
+                    <div class="row no-gutters">
                         <div class="col-md-6 d-flex flex-column my-3 pr-3">
                             <small class="mb-3">Full Name</small>
-                            <input type="text">
+                            <input type="text" name="name">
                         </div>
                         <div class="col-md-6 d-flex flex-column my-3">
                             <small class="mb-3">Email Address</small>
-                            <input type="email">
+                            <input type="email" name="email">
                         </div>
                         <div class="col-12 d-flex flex-column my-3">
                             <small class="mb-3">Your Message</small>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                            <textarea name="content" id="" cols="30" rows="10"></textarea>
                         </div>
                         <div class="col-12">
-                            <div class="mb-3 g-recaptcha" name="g-recaptcha" data-sitekey="6LfTtv4UAAAAAKE_90HViMCMFtoEaZZnFgZJU8xG"></div>
+                            <div class="mb-3 g-recaptcha" name="g-recaptcha" data-sitekey="<?php echo getenv("RECAPTCHA_SITE_KEY") ?>"></div>
                         </div>
                         <div class="col-12">
                             <input type="submit">
                         </div>
-            
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
     </div>
 </div>

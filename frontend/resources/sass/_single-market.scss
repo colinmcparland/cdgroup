@@ -1,17 +1,22 @@
 .single-market-content-area-1 {
   &__top-heading {
-   font-weight: 700;
-   color: $yellow;
+    font-weight: 700;
+    color: $yellow;
    
-   @media screen and (max-width: 768px) {
-    font-size: $h2;
-  }
+    @media screen and (max-width: 768px) {
+      font-size: $h2;
+    }
   
   }
 
   &__title {
     font-weight: 300;
   }  
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .single-market-content-area-2 {

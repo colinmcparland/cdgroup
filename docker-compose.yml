@@ -1,6 +1,10 @@
 services:
   server:
     build: ./server
+    networks:
+      default:
+        aliases:
+          - ${ADMIN_URL}
     ports:
       - 80:80
     command: [nginx, '-g', 'daemon off;']
@@ -8,21 +12,41 @@ services:
       - admin
       - frontend
     volumes:
-     - frontend-volume:/var/www/frontend/assets:ro
-     - admin-volume:/var/www/admin/assets:ro
+     - type: bind
+       source: ./admin
+       target: /var/www/admin/assets
+     - type: bind
+       source: ./frontend/public
+       target: /var/www/frontend/assets
   frontend:
     build: ./frontend
-    command: sh -c "php-fpm7; tail -f /dev/null;"
+    command: sh -c "php-fpm7; if [ ${DEV} = "true" ] ; then npm run watch; else tail -f /dev/null; fi"
     volumes:
-      - frontend-volume:/cdg/public:rw
+      - type: bind
+        source: ./frontend
+        target: /cdg
+    environment:
+      ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
+      MIX_ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
+      RECAPTCHA_SITE_KEY: ${RECAPTCHA_SITE_KEY}
+      RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY}
+      MAIL_DRIVER: ${MAIL_DRIVER}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_ENCRYPTION: ${MAIL_ENCRYPTION}
+      SESSION_DRIVER: ${SESSION_DRIVER}
+      BROADCAST_DRIVER: ${BROADCAST_DRIVER}
+      CACHE_DRIVER: ${CACHE_DRIVER}
+      LOG_CHANNEL: ${LOG_CHANNEL}
+      DEV: ${DEV}
   admin:
     build: 
       context: ./admin
       args:
         DEV: ${DEV}
     command: sh -c "php-fpm7; tail -f /dev/null;"
-    volumes:
-      - admin-volume:/admin:rw
     depends_on:
       db:
         condition: service_healthy

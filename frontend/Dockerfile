@@ -3,7 +3,13 @@ RUN apk update
 RUN apk add npm composer php7-fpm nano php7-session php7-tokenizer
 WORKDIR /cdg
 ADD . .
+
+# Install NPM packages and build the production app
 RUN npm install
+RUN npm rebuild node-sass
+RUN npm run prod
+
+# Install composer packages
 RUN composer install
 
 # Setup permissions
@@ -15,6 +21,7 @@ RUN chown -R cdg:cdg /cdg
 # Configure php-fpm
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = frontend:9000/g' /etc/php7/php-fpm.d/www.conf
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = frontend:9000/g' /etc/php7/php-fpm.d/www.conf
+RUN sed -i 's/;clear_env = no/clear_env = no/g' /etc/php7/php-fpm.d/www.conf
 RUN sed -i 's/user = nobody/user = cdg/g' /etc/php7/php-fpm.d/www.conf
 RUN sed -i 's/group = nobody/group = cdg/g' /etc/php7/php-fpm.d/www.conf
 

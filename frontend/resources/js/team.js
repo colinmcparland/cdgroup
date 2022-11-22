@@ -10,7 +10,7 @@ export function populateTeam() {
         $('.team-tiles__wrapper').append(`
         
                 <a href="/team/${slug}" class="team-tiles__tile px-3 mb-5 col-12 col-sm-4 col-lg-3">
-                    <div class="team-tiles__tile-img" style="background-image: url(${image});" />
+                    <div class="team-tiles__tile-img" style="background-image: url(${image});"></div>
                     <small class='mt-3'>${title && title.rendered ? title.rendered : ""}</small>
                     <small>${position || ""}</small>
                 </a>

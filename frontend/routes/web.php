@@ -18,6 +18,8 @@ use App\Mail\ContactUsEmail;
 |
 */
 
+$url = getenv("ADMIN_URL") . '/wp-json/wp/v2';
+
 Route::get('/', function () {
   return view('home');
 });
@@ -46,7 +48,7 @@ Route::get('/our-history', function () {
   return view('history');
 });
 
-Route::put('/submit-form', function(Request $request) {
+Route::put('/submit-join-team-form', function(Request $request) {
   $name = $request->input('name');
   $birthday = $request->input('birthday');
   $ba_grad = $request->input('graduation-ba');
@@ -63,7 +65,7 @@ Route::put('/submit-form', function(Request $request) {
   $client = new Client();
   $result = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
     "query" => [
-    "secret" => "6LfTtv4UAAAAAE0vXuNA-3PxfA004muLQUXGxGSh",
+    "secret" => getenv('RECAPTCHA_SECRET_KEY'),
     "response" => $recaptcha
   ]]);
 
@@ -78,6 +80,7 @@ Route::put('/submit-form', function(Request $request) {
 
   if( count(Mail::failures()) > 0 ) {
 
+    // @TODO: Do some proper error handling here
     echo "There was one or more failures. They were: <br />";
  
     foreach(Mail::failures() as $email_address) {
@@ -91,48 +94,40 @@ Route::put('/submit-form', function(Request $request) {
   return;
 });
 
-Route::put('/submit-form-contact', function(Request $request) {
+Route::put('/submit-contact-form', function(Request $request) {
   $name = $request->input('name');
   $email = $request->input('email');
-  $message = $request->input('message');
+  $content = $request->input('content');
   $recaptcha = $request->input('g-recaptcha-response');
 
   $client = new Client();
   $result = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
     "query" => [
-    "secret" => "6LfTtv4UAAAAAE0vXuNA-3PxfA004muLQUXGxGSh",
+    "secret" => getenv("RECAPTCHA_SECRET_KEY"),
     "response" => $recaptcha
   ]]);
 
-  $valid = json_decode(($result->getBody()))->{'success'};
+  $validCaptcha = json_decode(($result->getBody()))->{'success'};
+  $errorMessage = 'There was a problem submitting the form.  Please try again.';
+  
+  if($validCaptcha) {
+    Mail::to('colin@tinybird.ca')->send(new ContactUsEmail($name, $email, $content)); 
 
-  if($valid && $request->filled(['name', 'email', 'message'])) {
-    echo Mail::to('colin@tinybird.ca')->send(new ContactUsEmail($name, $email, $message)); 
+    if(Mail::failures()) {
+      return redirect('/contact')->with('message', $errorMessage);
+    }
   } else {
-    // Error
-    echo "bye";
+    return redirect('/contact')->with('message', $errorMessage);
   }
 
-  if( count(Mail::failures()) > 0 ) {
-
-    echo "There was one or more failures. They were: <br />";
- 
-    foreach(Mail::failures() as $email_address) {
-        echo " - $email_address <br />";
-     }
- 
- } else {
-     echo "No errors, all sent successfully!";
- }
-
-  return;
+  return redirect('/contact')->with('message', 'Thank you for contacting us.  We will be in touch as soon as possible.');
 });
 
-Route::get('/news/{news_slug}', function ($news_slug) {
+Route::get('/news/{news_slug}', function ($news_slug) use ($url) {
 
   //  Make sure this post type exists
   $client = new Client();
-  $result = $client->request('GET', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/wp-json/wp/v2/news_post?per_page=100');
+  $result = $client->request('GET', $url . '/news_post?per_page=100');
   $valid_post = false;
 
   foreach(json_decode($result->getBody()) as $news_post) {
@@ -149,11 +144,11 @@ Route::get('/news/{news_slug}', function ($news_slug) {
   
 });
 
-Route::get('/markets/{market_slug}', function ($market_slug) {
+Route::get('/markets/{market_slug}', function ($market_slug) use ($url) {
 
   //  Make sure this post type exists
   $client = new Client();
-  $result = $client->request('GET', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/wp-json/wp/v2/markets_post?per_page=100');
+  $result = $client->request('GET', $url . '/markets_post?per_page=100');
   $valid_post = false;
 
   foreach(json_decode($result->getBody()) as $market_post) {
@@ -175,11 +170,11 @@ Route::get('/capabilities', function () {
   return view('capabilities');
 });
 
-Route::get('/capabilities/{capability_slug}', function ($capability_slug) {
+Route::get('/capabilities/{capability_slug}', function ($capability_slug) use ($url) {
 
   //  Make sure this post type exists
   $client = new Client();
-  $result = $client->request('GET', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/wp-json/wp/v2/capabilities_post?per_page=100');
+  $result = $client->request('GET', $url . '/capabilities_post?per_page=100');
   $valid_post = false;
 
   foreach(json_decode($result->getBody()) as $capabilities_post) {
@@ -205,11 +200,11 @@ Route::get('/contact', function () {
 });
 
 
-Route::get('/projects/{project_slug}', function ($project_slug) {
+Route::get('/projects/{project_slug}', function ($project_slug) use ($url) {
 
   //  Make sure this post type exists
   $client = new Client();
-  $result = $client->request('GET', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/wp-json/wp/v2/projects_post?per_page=100');
+  $result = $client->request('GET', $url . '/projects_post?per_page=100');
   $valid_post = false;
 
   foreach(json_decode($result->getBody()) as $projects_post) {
@@ -226,11 +221,11 @@ Route::get('/projects/{project_slug}', function ($project_slug) {
   
 });
 
-Route::get('/team/{team_member_slug}', function ($team_member_slug) {
+Route::get('/team/{team_member_slug}', function ($team_member_slug) use ($url) {
 
   //  Make sure this post type exists
   $client = new Client();
-  $result = $client->request('GET', 'http://' . $_SERVER['HTTP_HOST'] . '/admin/wp-json/wp/v2/team_members?per_page=100');
+  $result = $client->request('GET', $url . '/team_members?per_page=100');
   $valid_post = false;
 
   foreach(json_decode($result->getBody()) as $team_member) {

@@ -15,7 +15,7 @@
       <div class="row join-our-team">
       
           <div class="col-12 col-md-4 order-md-1 order-2">
-              <form method="post" action="/submit-form" enctype="multipart/form-data">
+              <form method="post" action="/submit-join-team-form" enctype="multipart/form-data">
                 <input name="_method" value="PUT" type="hidden"/>
                 @csrf
               <div class="row no-gutters join-our-team__form mt-5 pr-3">

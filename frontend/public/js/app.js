@@ -40705,7 +40705,7 @@ function populateProjectsTiles() {
             var projectIsInSearch = searchQuery === null || searchQuery === "" ? true : projectPost.title.rendered.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
 
             if (projectIsInMarket && projectIsInCapability && projectIsInSearch) {
-                $('.projects-tiles__wrapper').append('\n                <a class=\'col-12 col-sm-6 col-lg-4\' href="/projects/' + slug + '">\n                    <div class="projects-tiles__tile mb-5">\n                        <div class="projects-tiles__tile-img" style="background-image: url(' + (image || "") + ');"  />\n                          \n                        <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                        <p>' + (content || "") + '</p>\n                    </div>\n                </a>\n            ');
+                $('.projects-tiles__wrapper').append('\n                <a class=\'col-12 col-sm-6 col-lg-4\' href="/projects/' + slug + '">\n                    <div class="projects-tiles__tile mb-5">\n                        <div class="projects-tiles__tile-img" style="background-image: url(' + (image || "") + ');"></div>\n\n                        <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                        <p>' + (content || "") + '</p>\n                    </div>\n                </a>\n            ');
             }
         });
     });
@@ -41082,7 +41082,7 @@ function populateCapabilities() {
             title = _ref5.title,
             slug = _ref5.slug;
 
-        $('.capabilities-tiles__wrapper').append('\n          <a class=\'col-12 col-sm-6 col-lg-4\' href="/capabilities/' + (slug || "") + '">\n              <div class="capabilities-tiles__tile px-3 mb-5">\n                  <div class="capabilities-tiles__tile-img" style="background-image: url(' + (image || "") + ');" />\n                  <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                  <p>' + (content || "") + '</p>\n              </div>\n          </a>\n      ');
+        $('.capabilities-tiles__wrapper').append('\n          <a class=\'col-12 col-sm-6 col-lg-4\' href="/capabilities/' + (slug || "") + '">\n              <div class="capabilities-tiles__tile px-3 mb-5">\n                  <div class="capabilities-tiles__tile-img" style="background-image: url(' + (image || "") + ');"></div>\n                  <h3 class=\'mt-3\'>' + (title && title.rendered ? title.rendered : "") + '</h3>\n                  <p>' + (content || "") + '</p>\n              </div>\n          </a>\n      ');
     });
 }
 

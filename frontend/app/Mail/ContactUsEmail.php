@@ -34,6 +34,6 @@ class ContactUsEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('CDG Website')->view('email.contact-us');
+        return $this->view('email.contact-us');
     }
 }

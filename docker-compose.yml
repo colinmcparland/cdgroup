@@ -41,6 +41,8 @@ services:
       CACHE_DRIVER: ${CACHE_DRIVER}
       LOG_CHANNEL: ${LOG_CHANNEL}
       DEV: ${DEV}
+      APP_DEBUG: ${DEV}
+      MAIL_FROM_NAME: "CDG Website"
   admin:
     build: 
       context: ./admin

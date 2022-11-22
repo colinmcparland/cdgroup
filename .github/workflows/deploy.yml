@@ -15,21 +15,25 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           source: "./*"
-          target: "/var/www/tmp"
-      - name: Move files, install dependencies, setup .env
+          target: "/var/tmp/web"
+      - name: Build everything
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
-          script: cd /var/www;
-            rm -rf cdg;
-            mv tmp cdg;
-            chown -R www-data:www-data cdg;
-            find cdg -type f -exec chmod 644 {};
-            find cdg -type d -exec chmod 755 {};
-            composer install --no-dev;
-            npm install;
+          script: |
+            cd /var;
+            rm -rf web;
+            mv /var/tmp/web web;
+            rm -rf /var/tmp/web;
+            sed -i 's#DB_PASSWORD=#DB_PASSWORD=${{secrets.PROD_DB_PASS}}#g' .env.example;
+            sed -i 's#DB_NAME=#DB_NAME=${{secrets.PROD_DB_NAME}}#g' .env.example;
+            sed -i 's#DB_ROOT_PASSWORD=#DB_ROOT_PASSWORD=${{secrets.PROD_DB_ROOT_PASSWORD}}#g' .env.example;
+            sed -i 's#RECAPTCHA_SITE_KEY=#RECAPTCHA_SITE_KEY=${{secrets.RECAPTCHA_SITE_KEY}}#g' .env.example;
+            sed -i 's#RECAPTCHA_SECRET_KEY=#RECAPTCHA_SECRET_KEY=${{secrets.RECAPTCHA_SECRET_KEY}}#g' .env.example;
+            sed -i 's#MAIL_PASSWORD=#MAIL_PASSWORD=${{secrets.MAIL_PASSWORD}}#g' .env.example;
             mv .env.example .env;
-            php artisan key:generate;
-            npm run prod;
+            docker compose build;
+            docker compose stop;
+            docker compose up;

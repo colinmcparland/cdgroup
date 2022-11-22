@@ -8,11 +8,11 @@
   <div class="container">
       <div class="row">
           <div class="col-12 contact-header">Contact Us</div>
-          <div class="col-12">
-            @if (session('message'))
+          @if (session('message'))
+            <div class="col-12">
                 {{ session('message') }}
-            @endif
-          </div>
+            </div>
+          @endif
       </div>
   </div>
   @include('partials.contact.tiles')

@@ -3,6 +3,12 @@
         Apply With Us
     </div>
 </div>
+@if (session('message'))
+  <div class="col-12">
+    {{ session('message') }}
+  </div>
+  @endif
+  </div>
 <div class="col-12 mb-3">
     <small>
         <em>Fields marked with * are required</em>
@@ -71,16 +77,16 @@
     </select>
 </div>
 <div class="col-md-12">
-    <small>Upload CV *</small>
+    <small>Upload CV (PDF Only) *</small>
 </div>
 <div class="col-md-12 mb-3">
-    <input type="file" required name="cv" />
+    <input accept="application/pdf" type="file" required name="cv" />
 </div>
 <div class="col-md-12">
-    <small>Upload Cover Letter</small>
+    <small>Upload Cover Letter (PDF Only)</small>
 </div>
 <div class="col-md-12 mb-3">
-    <input type="file" name="cover-letter" />
+    <input accept="application/pdf" type="file" name="cover-letter" />
 </div>
 <div class="mb-3 g-recaptcha" name="g-recaptcha" data-sitekey="<?php echo getenv("RECAPTCHA_SITE_KEY"); ?>"></div>
 <div class="col-12 mb-5">

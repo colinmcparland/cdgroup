@@ -1,6 +1,6 @@
 FROM php:7.1-alpine
 RUN apk update
-RUN apk add npm composer php7-fpm nano php7-session php7-tokenizer
+RUN apk add npm composer php7-fpm nano php7-session php7-tokenizer php7-fileinfo
 WORKDIR /cdg
 ADD . .
 
@@ -11,6 +11,10 @@ RUN npm run prod
 
 # Install composer packages
 RUN composer install
+
+# Generate an app key
+RUN touch .env
+RUN php artisan key:generate
 
 # Setup permissions
 RUN adduser cdg -D

@@ -52,12 +52,18 @@ class JoinOurTeamEmail extends Mailable
     {
         $ret = $this->view('email.join-our-team');
 
-        if($this->cv->path()) {
-            $ret = $ret->attach($this->cv->path());
+        if($this->cv && $this->cv->path()) {
+            $ret = $ret->attach($this->cv->path(), [
+              'as' => 'resume.pdf',
+              'mime' => 'application/pdf'
+            ]);
         }
 
-        if($this->coverletter->path()) {
-            $ret = $ret->attach($this->coverletter->path());
+        if($this->coverletter && $this->coverletter->path()) {
+            $ret = $ret->attach($this->coverletter->path(), [
+              'as' => 'coverletter.pdf',
+              'mime' => 'application/pdf'
+            ]);
         }
         return $ret;
     }

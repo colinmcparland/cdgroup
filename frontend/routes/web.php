@@ -1,11 +1,12 @@
 <?php
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\JoinOurTeamEmail;
 use App\Mail\ContactUsEmail;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,40 +59,48 @@ Route::put('/submit-join-team-form', function(Request $request) {
   $country = $request->input('country');
   $expertise = $request->input('expertise');
   $specialization = $request->input('specialization');
-  $cv = $request->cv;
+  $cv = $request->file('cv');
   $coverletter = $request->file('cover-letter');
   $recaptcha = $request->input('g-recaptcha-response');
 
   $client = new Client();
+
+  // Validate input
+  $validator = Validator::make($request->all(), [
+    'name' => 'required',
+    'birthday' => 'required',
+    'graduation-ba' => 'required',
+    'major-ba' => 'required',
+    'country' => 'required',
+    'expertise' => 'required',
+    'specialization' => 'required',
+    'cv' => 'required|mimes:pdf',
+    'cover-letter' => 'mimes:pdf'
+  ]);
+
+  if ($validator->fails() || $request->hasFile('cv') != 1) {
+    return redirect('/join-our-team')->with('message', 'There was a problem validating the form input.  Please try again.');
+  }
+
+  // Validate captcha
   $result = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
     "query" => [
     "secret" => getenv('RECAPTCHA_SECRET_KEY'),
     "response" => $recaptcha
   ]]);
+  $validCaptcha = json_decode(($result->getBody()))->{'success'};
 
-  $valid = json_decode(($result->getBody()))->{'success'};
-
-  if($valid && $request->filled(['name', 'birthday', 'graduation-ba', 'major-ba', 'country', 'expertise', 'specialization']) && $request->hasFile('cv') == 1) {
-    echo Mail::to('colin@tinybird.ca')->send(new JoinOurTeamEmail($name, $birthday, $ba_grad, $ba_major, $ma_grad, $ma_major, $country, $expertise, $specialization, $cv, $coverletter));
-  } else {
-    // Error
-    echo "bye";
+  if(!$validCaptcha) {
+    return redirect('/join-our-team')->with('message', 'There was a problem validating the captcha.  Please try again.');
   }
 
-  if( count(Mail::failures()) > 0 ) {
+  Mail::to('colin@tinybird.ca')->send(new JoinOurTeamEmail($name, $birthday, $ba_grad, $ba_major, $ma_grad, $ma_major, $country, $expertise, $specialization, $cv, $coverletter));
 
-    // @TODO: Do some proper error handling here
-    echo "There was one or more failures. They were: <br />";
- 
-    foreach(Mail::failures() as $email_address) {
-        echo " - $email_address <br />";
-     }
- 
- } else {
-     echo "No errors, all sent successfully!";
- }
+  if(Mail::failures()) {
+    return redirect('/join-our-team')->with('message', 'There was a problem sending your message.  Please try again.');
+  }
 
-  return;
+  return redirect('/join-our-team')->with('message', 'Thank you for contacting us.  We will be in touch as soon as possible.');
 });
 
 Route::put('/submit-contact-form', function(Request $request) {
@@ -101,23 +110,34 @@ Route::put('/submit-contact-form', function(Request $request) {
   $recaptcha = $request->input('g-recaptcha-response');
 
   $client = new Client();
+
+  // Validate input
+  $validator = Validator::make($request->all(), [
+      'name' => 'required',
+      'email' => 'required',
+      'content' => 'required'
+  ]);
+
+  if ($validator->fails()) {
+    return redirect('/contact')->with('message', 'There was a problem validating the form input.  Please try again.');
+  }
+
+  // Validate recaptcha
   $result = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
     "query" => [
-    "secret" => getenv("RECAPTCHA_SECRET_KEY"),
-    "response" => $recaptcha
-  ]]);
-
+      "secret" => getenv("RECAPTCHA_SECRET_KEY"),
+      "response" => $recaptcha
+    ]]);
   $validCaptcha = json_decode(($result->getBody()))->{'success'};
-  $errorMessage = 'There was a problem submitting the form.  Please try again.';
-  
-  if($validCaptcha) {
-    Mail::to('colin@tinybird.ca')->send(new ContactUsEmail($name, $email, $content)); 
 
-    if(Mail::failures()) {
-      return redirect('/contact')->with('message', $errorMessage);
-    }
-  } else {
-    return redirect('/contact')->with('message', $errorMessage);
+  if(!$validCaptcha) {
+    return redirect('/contact')->with('message', 'There was an error validating your CAPTCHA.  Please try again.');
+  }
+
+  Mail::to('colin@tinybird.ca')->send(new ContactUsEmail($name, $email, $content));
+
+  if(Mail::failures()) {
+    return redirect('/contact')->with('message', 'There was a problem sending your message.  Please try again.');
   }
 
   return redirect('/contact')->with('message', 'Thank you for contacting us.  We will be in touch as soon as possible.');
@@ -141,7 +161,7 @@ Route::get('/news/{news_slug}', function ($news_slug) use ($url) {
   } else {
     abort(404);
   }
-  
+
 });
 
 Route::get('/markets/{market_slug}', function ($market_slug) use ($url) {
@@ -162,7 +182,7 @@ Route::get('/markets/{market_slug}', function ($market_slug) use ($url) {
   } else {
     abort(404);
   }
-  
+
 });
 
 
@@ -188,7 +208,7 @@ Route::get('/capabilities/{capability_slug}', function ($capability_slug) use ($
   } else {
     abort(404);
   }
-  
+
 });
 
 Route::get('/projects', function () {
@@ -218,7 +238,7 @@ Route::get('/projects/{project_slug}', function ($project_slug) use ($url) {
   } else {
     abort(404);
   }
-  
+
 });
 
 Route::get('/team/{team_member_slug}', function ($team_member_slug) use ($url) {
@@ -239,7 +259,7 @@ Route::get('/team/{team_member_slug}', function ($team_member_slug) use ($url) {
   } else {
     abort(404);
   }
-  
+
 });
 
 

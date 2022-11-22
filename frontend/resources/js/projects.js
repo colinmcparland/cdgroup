@@ -12,7 +12,7 @@ export function populateProjectsContentArea1() {
 
 export function populateProjectsTiles(market = null, capability = null, searchQuery = null) {
     return new Promise((resolve, reject) => {
-    
+
         const { projects_posts } = window;
 
         const sort = localStorage.getItem('projects-sort');
@@ -59,8 +59,8 @@ export function populateProjectsTiles(market = null, capability = null, searchQu
             $('.projects-tiles__wrapper').append(`
                 <a class='col-12 col-sm-6 col-lg-4' href="/projects/${slug}">
                     <div class="projects-tiles__tile mb-5">
-                        <div class="projects-tiles__tile-img" style="background-image: url(${image || ""});"  />
-                          
+                        <div class="projects-tiles__tile-img" style="background-image: url(${image || ""});"></div>
+
                         <h3 class='mt-3'>${title && title.rendered ? title.rendered : ""}</h3>
                         <p>${content || ""}</p>
                     </div>
@@ -111,7 +111,7 @@ export function projectFilterListeners() {
         })
 
         $(".markets-options > div").click(e => {
-         
+
             $(".markets-options > div").removeClass("selected-option");
             $(e.currentTarget).addClass('selected-option');
             $(".markets-select .dropdown-placeholder").html(`<div>${$(e.currentTarget).html()}</div>`);
@@ -124,7 +124,7 @@ export function projectFilterListeners() {
         })
 
         $(".capabilities-options > div").click(e => {
-         
+
             $(".capabilities-options > div").removeClass("selected-option");
             $(e.currentTarget).addClass('selected-option');
             $(".capabilities-select .dropdown-placeholder").html(`<div>${$(e.currentTarget).html()}</div>`);

@@ -26,6 +26,7 @@ jobs:
             cd /var/website;
             rm -rf www;
             mv tmp web;
+            cd web;
             sed -i 's#DB_PASSWORD=#DB_PASSWORD=${{secrets.PROD_DB_PASS}}#g' .env.example;
             sed -i 's#DB_NAME=#DB_NAME=${{secrets.PROD_DB_NAME}}#g' .env.example;
             sed -i 's#DB_ROOT_PASSWORD=#DB_ROOT_PASSWORD=${{secrets.PROD_DB_ROOT_PASSWORD}}#g' .env.example;

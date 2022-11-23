@@ -1,4 +1,12 @@
 services:
+  server:
+    volumes:
+      - type: bind
+        source: ./admin
+        target: /var/www/admin/assets
+      - type: bind
+        source: ./frontend/public
+        target: /var/www/frontend/assets
   frontend:
     volumes:
       - type: bind

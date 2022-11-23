@@ -1,0 +1,18 @@
+services:
+  server:
+    volumes:
+      - type: volume
+        source: fe-volume
+        target: /var/www/frontend/assets
+      - type: volume
+        source: admin-volume
+        target: /var/www/admin/assets
+  frontend:
+    volumes:
+      - fe-volume:/cdg/public
+  admin:
+    volumes:
+      - admin-volume:/admin
+volumes:
+  fe-volume:
+  admin-volume:

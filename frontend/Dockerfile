@@ -3,19 +3,28 @@ RUN apk update
 RUN apk add npm composer php7-fpm nano php7-session php7-tokenizer php7-fileinfo
 WORKDIR /cdg
 ADD . .
-
-# Install NPM packages and build the production app
-RUN npm install
-RUN npm rebuild node-sass
-RUN npm run prod
-
-# Install composer packages
-RUN composer install
+ARG MIX_ADMIN_URL
+ARG DEV
 
 # Generate an app key
 RUN touch .env
+
+# Build dependencies if we are on production
+# Locally, we will have a bind mount to the host, so we can use local dependencies
+RUN if [ "$DEV" != 'true' ] ; then \
+    # set the Mix variables so js can compile
+    echo MIX_ADMIN_URL="$MIX_ADMIN_URL" >> .env; \
+    # Install NPM packages
+    npm install; \
+    # Install composer packages \
+    composer install; \
+    # Build the production JS
+    npm run prod; \
+fi
+
+# Generate the app key
 RUN echo APP_KEY= >> .env
-RUN php artisan key:generate
+RUN php artisan key:generate --force
 
 # Setup permissions
 RUN adduser cdg -D

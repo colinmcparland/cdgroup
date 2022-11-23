@@ -11,20 +11,13 @@ services:
     depends_on:
       - admin
       - frontend
-    volumes:
-     - type: bind
-       source: ./admin
-       target: /var/www/admin/assets
-     - type: bind
-       source: ./frontend/public
-       target: /var/www/frontend/assets
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        DEV: ${DEV}
+        MIX_ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
     command: sh -c "php-fpm7; if [ ${DEV} = "true" ] ; then npm run watch; else tail -f /dev/null; fi"
-    volumes:
-      - type: bind
-        source: ./frontend
-        target: /cdg
     environment:
       ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
       MIX_ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}

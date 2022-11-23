@@ -71,7 +71,5 @@ services:
     volumes:
       - db-volume:/var/lib/mysql:rw
 volumes:
-  frontend-volume:
-  admin-volume:
   db-volume:
     external: true

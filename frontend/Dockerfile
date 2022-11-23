@@ -14,6 +14,7 @@ RUN composer install
 
 # Generate an app key
 RUN touch .env
+RUN echo APP_KEY= >> .env
 RUN php artisan key:generate
 
 # Setup permissions

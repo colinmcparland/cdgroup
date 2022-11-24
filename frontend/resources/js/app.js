@@ -5,8 +5,8 @@
 require('./bootstrap');
 require('slick-carousel');
 
-import { 
-  populateHomeSlider, 
+import {
+  populateHomeSlider,
   populateAfterSliderBlurb,
   populateHomeContentSection1,
   populateHomeContentSection2,
@@ -88,7 +88,7 @@ import {
 } from "./single-team";
 
 (function($) {
-  var url = process.env.MIX_ADMIN_URL + '/wp-json/wp/v2';
+  var url = 'https://' + process.env.MIX_ADMIN_HOST + '/wp-json/wp/v2';
 
   /*
     Functions to fetch the content from the WP API
@@ -165,7 +165,7 @@ import {
   function fetchCapabilitiesPostData() {
     if(window.capabilities_posts) {
       return Promise.resolve();
-    } 
+    }
 
     return $.ajax({
       url: url + '/capabilities_post?per_page=100&_embed',
@@ -289,7 +289,7 @@ import {
    */
   const setupPageData = () => {
     var page = location.pathname;
-    
+
     if(page === '/') {
       return Promise.all([
         fetchHomeData(),
@@ -401,7 +401,7 @@ import {
         .then(() => {
             populateTeam()
         });
-        
+
     } else if(page.indexOf('team/') > -1) {
       return Promise.all([
         fetchTeamPostData()
@@ -434,7 +434,7 @@ import {
         .then(() => {
            populateHistoryPageData()
         });
-    } 
+    }
   };
 
 
@@ -457,10 +457,10 @@ import {
           toggleAboutMenu(),
           toggleMobileMenu()
         ]);
-      }); 
+      });
   };
 
-  /* 
+  /*
     Add listeners for page interactions
   */
  const setupEventListeners = () => {

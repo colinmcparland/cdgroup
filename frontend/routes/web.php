@@ -19,7 +19,8 @@ use Illuminate\Support\Facades\Validator;
 |
 */
 
-$url = getenv("ADMIN_URL") . '/wp-json/wp/v2';
+$url = 'https://' . getenv("ADMIN_HOST") . '/wp-json/wp/v2';
+$client = new Client([ 'verify' => getenv("DEV") === 'false' ]);
 
 Route::get('/', function () {
   return view('home');
@@ -49,7 +50,7 @@ Route::get('/our-history', function () {
   return view('history');
 });
 
-Route::put('/submit-join-team-form', function(Request $request) {
+Route::put('/submit-join-team-form', function(Request $request) use ($client) {
   $name = $request->input('name');
   $birthday = $request->input('birthday');
   $ba_grad = $request->input('graduation-ba');
@@ -85,9 +86,10 @@ Route::put('/submit-join-team-form', function(Request $request) {
   // Validate captcha
   $result = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
     "query" => [
-    "secret" => getenv('RECAPTCHA_SECRET_KEY'),
-    "response" => $recaptcha
-  ]]);
+      "secret" => getenv('RECAPTCHA_SECRET_KEY'),
+      "response" => $recaptcha,
+    ]
+  ]);
   $validCaptcha = json_decode(($result->getBody()))->{'success'};
 
   if(!$validCaptcha) {
@@ -103,13 +105,11 @@ Route::put('/submit-join-team-form', function(Request $request) {
   return redirect('/join-our-team')->with('message', 'Thank you for contacting us.  We will be in touch as soon as possible.');
 });
 
-Route::put('/submit-contact-form', function(Request $request) {
+Route::put('/submit-contact-form', function(Request $request) use ($client) {
   $name = $request->input('name');
   $email = $request->input('email');
   $content = $request->input('content');
   $recaptcha = $request->input('g-recaptcha-response');
-
-  $client = new Client();
 
   // Validate input
   $validator = Validator::make($request->all(), [
@@ -127,7 +127,8 @@ Route::put('/submit-contact-form', function(Request $request) {
     "query" => [
       "secret" => getenv("RECAPTCHA_SECRET_KEY"),
       "response" => $recaptcha
-    ]]);
+    ]
+  ]);
   $validCaptcha = json_decode(($result->getBody()))->{'success'};
 
   if(!$validCaptcha) {
@@ -143,10 +144,9 @@ Route::put('/submit-contact-form', function(Request $request) {
   return redirect('/contact')->with('message', 'Thank you for contacting us.  We will be in touch as soon as possible.');
 });
 
-Route::get('/news/{news_slug}', function ($news_slug) use ($url) {
+Route::get('/news/{news_slug}', function ($news_slug) use ($url, $client) {
 
   //  Make sure this post type exists
-  $client = new Client();
   $result = $client->request('GET', $url . '/news_post?per_page=100');
   $valid_post = false;
 
@@ -164,10 +164,9 @@ Route::get('/news/{news_slug}', function ($news_slug) use ($url) {
 
 });
 
-Route::get('/markets/{market_slug}', function ($market_slug) use ($url) {
+Route::get('/markets/{market_slug}', function ($market_slug) use ($url, $client) {
 
   //  Make sure this post type exists
-  $client = new Client();
   $result = $client->request('GET', $url . '/markets_post?per_page=100');
   $valid_post = false;
 
@@ -190,10 +189,9 @@ Route::get('/capabilities', function () {
   return view('capabilities');
 });
 
-Route::get('/capabilities/{capability_slug}', function ($capability_slug) use ($url) {
+Route::get('/capabilities/{capability_slug}', function ($capability_slug) use ($url, $client) {
 
   //  Make sure this post type exists
-  $client = new Client();
   $result = $client->request('GET', $url . '/capabilities_post?per_page=100');
   $valid_post = false;
 
@@ -220,10 +218,9 @@ Route::get('/contact', function () {
 });
 
 
-Route::get('/projects/{project_slug}', function ($project_slug) use ($url) {
+Route::get('/projects/{project_slug}', function ($project_slug) use ($url, $client) {
 
   //  Make sure this post type exists
-  $client = new Client();
   $result = $client->request('GET', $url . '/projects_post?per_page=100');
   $valid_post = false;
 
@@ -241,10 +238,9 @@ Route::get('/projects/{project_slug}', function ($project_slug) use ($url) {
 
 });
 
-Route::get('/team/{team_member_slug}', function ($team_member_slug) use ($url) {
+Route::get('/team/{team_member_slug}', function ($team_member_slug) use ($url, $client) {
 
   //  Make sure this post type exists
-  $client = new Client();
   $result = $client->request('GET', $url . '/team_members?per_page=100');
   $valid_post = false;
 

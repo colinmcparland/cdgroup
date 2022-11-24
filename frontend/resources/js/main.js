@@ -2,7 +2,7 @@ import { populateHomeSlider } from './home.js';
 
 (function($) {
 
-  var url = 'http://admin.cdgroup-ae.test/wp-json/wp/v2';
+  var url = 'https://' + process.env.MIX_ADMIN_HOST + '/wp-json/wp/v2';
 
   function populateHome() {
     return $.ajax({

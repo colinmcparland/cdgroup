@@ -7,6 +7,7 @@ services:
       - type: bind
         source: ./frontend/public
         target: /var/www/frontend/assets
+      - ./local-certs:/etc/nginx/ssl:ro
   frontend:
     volumes:
       - type: bind

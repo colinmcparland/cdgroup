@@ -1,12 +1,17 @@
 services:
   server:
-    build: ./server
+    build:
+      context: ./server
+      args:
+        ADMIN_HOSTNAME: ${ADMIN_HOST}
+        FRONTEND_HOSTNAME: ${FRONTEND_HOST}
     networks:
       default:
         aliases:
-          - ${ADMIN_URL}
+          - ${ADMIN_HOST}
     ports:
       - 80:80
+      - 443:443
     command: [nginx, '-g', 'daemon off;']
     depends_on:
       - admin
@@ -16,11 +21,11 @@ services:
       context: ./frontend
       args:
         DEV: ${DEV}
-        MIX_ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
+        MIX_ADMIN_HOST: ${ADMIN_HOST}
     command: sh -c "php-fpm7; if [ ${DEV} = "true" ] ; then npm run watch; else tail -f /dev/null; fi"
     environment:
-      ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
-      MIX_ADMIN_URL: ${ADMIN_URL_PROTOCOL}${ADMIN_URL}
+      ADMIN_HOST: ${ADMIN_HOST}
+      MIX_ADMIN_HOST: ${ADMIN_HOST}
       RECAPTCHA_SITE_KEY: ${RECAPTCHA_SITE_KEY}
       RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY}
       MAIL_DRIVER: ${MAIL_DRIVER}

@@ -1,6 +1,8 @@
 FROM nginx:alpine
 RUN apk update
 RUN apk add nano
+ARG ADMIN_HOSTNAME
+ARG FRONTEND_HOSTNAME
 COPY . .
 
 # Disable the default nginx conf
@@ -15,9 +17,11 @@ RUN mkdir /etc/nginx/sites-enabled
 RUN touch /etc/nginx/sites-available
 
 # Setup admin
-COPY admin.nginx.conf /etc/nginx/sites-available/admin.cdgroup-ae.com
-RUN ln -s /etc/nginx/sites-available/admin.cdgroup-ae.com /etc/nginx/sites-enabled/admin.cdgroup-ae.com
+COPY admin.nginx.conf /etc/nginx/sites-available/$ADMIN_HOSTNAME
+RUN sed -i "s#REPLACE_ME_WITH_HOSTNAME#$ADMIN_HOSTNAME#g" "/etc/nginx/sites-available/$ADMIN_HOSTNAME"
+RUN ln -s "/etc/nginx/sites-available/$ADMIN_HOSTNAME" "/etc/nginx/sites-enabled/$ADMIN_HOSTNAME"
 
 # Setup frontend
-COPY frontend.nginx.conf /etc/nginx/sites-available/cdgroup-ae.com
-RUN ln -s /etc/nginx/sites-available/cdgroup-ae.com /etc/nginx/sites-enabled/cdgroup-ae.com
+COPY frontend.nginx.conf /etc/nginx/sites-available/$FRONTEND_HOSTNAME
+RUN sed -i "s#REPLACE_ME_WITH_HOSTNAME#$FRONTEND_HOSTNAME#g" "/etc/nginx/sites-available/$FRONTEND_HOSTNAME"
+RUN ln -s "/etc/nginx/sites-available/$FRONTEND_HOSTNAME" "/etc/nginx/sites-enabled/$FRONTEND_HOSTNAME"

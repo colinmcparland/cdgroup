@@ -14362,7 +14362,7 @@ __webpack_require__(35);
 
 
 (function ($) {
-  var url = "http://admin.cdgroup-ae.test" + '/wp-json/wp/v2';
+  var url = 'https://' + "admin.cdgroup-ae.dev" + '/wp-json/wp/v2';
 
   /*
     Functions to fetch the content from the WP API
@@ -14633,7 +14633,7 @@ __webpack_require__(35);
     });
   };
 
-  /* 
+  /*
     Add listeners for page interactions
   */
   var setupEventListeners = function setupEventListeners() {

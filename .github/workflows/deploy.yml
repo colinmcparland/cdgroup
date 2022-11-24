@@ -35,7 +35,7 @@ jobs:
             sed -i 's#RECAPTCHA_SECRET_KEY=#RECAPTCHA_SECRET_KEY=${{secrets.RECAPTCHA_SECRET_KEY}}#g' .env.example;
             sed -i 's#MAIL_PASSWORD=#MAIL_PASSWORD=${{secrets.MAIL_PASSWORD}}#g' .env.example;
             sed -i 's#ADMIN_HOST=#ADMIN_HOST=admin.cdgroup-ae.com#g' .env.example;
-            sed -i 's#FRONTEND_HOST=#ADMIN_HOST=cdgroup-ae.com#g' .env.example;
+            sed -i 's#FRONTEND_HOST=#FRONTEND_HOST=cdgroup-ae.com#g' .env.example;
             
             mv .env.example .env;
             ./buildProd.sh;

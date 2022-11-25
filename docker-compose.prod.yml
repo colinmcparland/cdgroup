@@ -17,6 +17,7 @@ services:
       - admin-volume:/admin
   certbot:
     image: certbot/certbot
+    command: certonly --webroot -w /var/www/certbot -d cdgroup-ae.com -d cdgroup-ae.com -d admin.cdgroup-ae.com -m colin@tinybird.ca --agree-tos
     volumes:
       - certbot-volume-config:/var/www/certbot:rw
       - certbot-volume-www:/etc/letsencrypt:rw

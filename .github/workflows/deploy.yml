@@ -36,8 +36,7 @@ jobs:
             sed -i 's#MAIL_PASSWORD=#MAIL_PASSWORD=${{secrets.MAIL_PASSWORD}}#g' .env.example;
             sed -i 's#ADMIN_HOST=#ADMIN_HOST=admin.cdgroup-ae.com#g' .env.example;
             sed -i 's#FRONTEND_HOST=#FRONTEND_HOST=cdgroup-ae.com#g' .env.example;
-            
             mv .env.example .env;
             ./buildProd.sh;
-            docker compose down -v;
+            DEV=false docker compose down -v;
             ./runProd.sh;

@@ -30,7 +30,7 @@ export function populateSingleMarket() {
     $('.single-market-content-area-2__title').html(content_area_2.subheader || "");
     $('.single-market-content-area-2__content').html(content_area_2.content || "");
   }
-  
+
   if(!content_area_2 || (!content_area_2.subheader && !content_area_2.header && !content_area_2.content)) {
     $('.single-market-content-area-2').hide();
   }
@@ -58,5 +58,6 @@ export function populateSingleMarket() {
       `);
     });
 
+  document.title = relevantMarket.title.rendered;
 
 }

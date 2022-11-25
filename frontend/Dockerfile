@@ -14,8 +14,8 @@ RUN touch .env
 RUN if [ "$DEV" != 'true' ] ; then \
     # set the Mix variables so js can compile
     echo MIX_ADMIN_HOST="$MIX_ADMIN_HOST" >> .env; \
-    # Install NPM packages
-    npm install; \
+    # Install NPM packages from package lock
+    npm ci; \
     # Install composer packages \
     composer install; \
     # Build the production JS

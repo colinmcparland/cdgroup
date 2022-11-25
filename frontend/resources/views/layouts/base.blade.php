@@ -11,7 +11,7 @@
   <meta name='description' content="@yield('desc')">
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600|Muli:400,700,800" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="favicon.ico">
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico">
   <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>

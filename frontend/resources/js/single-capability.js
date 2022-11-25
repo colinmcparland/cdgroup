@@ -61,4 +61,6 @@ export function populateSingleCapability() {
           </div>
       `);
     });
+
+  document.title = relevantCapability.title.rendered;
 }

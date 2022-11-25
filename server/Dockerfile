@@ -1,8 +1,8 @@
 FROM nginx:alpine
 RUN apk update
 RUN apk add nano
-ARG ADMIN_HOSTNAME
 ARG FRONTEND_HOSTNAME
+ARG ADMIN_HOSTNAME
 COPY . .
 
 # Disable the default nginx conf
@@ -18,7 +18,8 @@ RUN touch /etc/nginx/sites-available
 
 # Setup admin
 COPY admin.nginx.conf /etc/nginx/sites-available/$ADMIN_HOSTNAME
-RUN sed -i "s#REPLACE_ME_WITH_HOSTNAME#$ADMIN_HOSTNAME#g" "/etc/nginx/sites-available/$ADMIN_HOSTNAME"
+RUN sed -i "s#REPLACE_ME_WITH_FRONTEND_HOSTNAME#$FRONTEND_HOSTNAME#g" "/etc/nginx/sites-available/$ADMIN_HOSTNAME"
+RUN sed -i "s#REPLACE_ME_WITH_ADMIN_HOSTNAME#$ADMIN_HOSTNAME#g" "/etc/nginx/sites-available/$ADMIN_HOSTNAME"
 RUN ln -s "/etc/nginx/sites-available/$ADMIN_HOSTNAME" "/etc/nginx/sites-enabled/$ADMIN_HOSTNAME"
 
 # Setup frontend

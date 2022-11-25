@@ -38,5 +38,5 @@ jobs:
             sed -i 's#FRONTEND_HOST=#FRONTEND_HOST=cdgroup-ae.com#g' .env.example;
             mv .env.example .env;
             ./buildProd.sh;
-            DEV=false docker compose down -v;
+            DEV=false docker compose -f docker-compose.yml -f docker-compose.prod.yml down -v;
             ./runProd.sh;

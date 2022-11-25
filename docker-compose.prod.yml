@@ -1,20 +1,23 @@
 services:
   server:
     depends_on:
-      - certbot
     volumes:
       - type: volume
         source: fe-volume
         target: /var/www/frontend/assets
+        read_only: true
       - type: volume
         source: admin-volume
         target: /var/www/admin/assets
-      - type: volume
-        source: certbot-www-volume
-        target: /var/website/certbot:ro
-      - type: volume
-        source: certbot-config-volume
-        target: /etc/nginx/ssl:ro
+        read_only: true
+      - type: bind
+        source: /var/website/certs/www
+        target: /var/website/certbot
+        read_only: true
+      - type: bind
+        source: /var/website/certs/config
+        target: /etc/nginx/ssl
+        read_only: true
   frontend:
     volumes:
       - fe-volume:/cdg/public
@@ -23,14 +26,16 @@ services:
       - admin-volume:/admin
   certbot:
     image: certbot/certbot
+    depends_on:
+      - server
     command: certonly --webroot -w /var/www/certbot -d cdgroup-ae.com -d cdgroup-ae.com -d admin.cdgroup-ae.com -m colin@tinybird.ca --agree-tos
     volumes:
-      - certbot-config-volume:/var/www/certbot:rw
-      - certbot-www-volume:/etc/letsencrypt:rw
+      - type: bind
+        source: /var/website/certs/www
+        target: /var/www/certbot
+      - type: bind
+        source: /var/website/certs/config
+        target: /etc/letsencrypt
 volumes:
   fe-volume:
   admin-volume:
-  certbot-www-volume:
-    external: true
-  certbot-config-volume:
-    external: true

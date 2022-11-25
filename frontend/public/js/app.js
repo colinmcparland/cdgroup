@@ -41170,7 +41170,7 @@ function populateNewsTiles() {
             var newsIsInSearch = searchFilter === null || searchFilter === "" ? true : newsPost.title.rendered.toLowerCase().indexOf(searchFilter.toLowerCase()) > -1;
 
             if (newsIsInSearch) {
-                $('.news-tiles__wrapper').append("\n                <a class='col-12 col-sm-6 col-lg-4' href=\"/news/" + slug + "\">\n                    <div class=\"news-tiles__tile mb-5\">\n                        <div class=\"news-tiles__tile-img\" style=\"background-image: url(" + (image || "") + ");\"  />\n                        <h3 class='mt-3'>" + (title && title.rendered ? title.rendered : "") + "</h3>\n                        " + (date_published ? "<small>" + date_published + "</small>" : null) + "\n                        <p>" + (preview_content || "") + "</p>\n                    </div>\n                </a>\n            ");
+                $('.news-tiles__wrapper').append("\n                <a class='col-12 col-sm-6 col-lg-4' href=\"/news/" + slug + "\">\n                    <div class=\"news-tiles__tile mb-5\">\n                        <div class=\"news-tiles__tile-img\" style=\"background-image: url(" + (image || "") + ");\" ></div>\n                        <h3 class='mt-3'>" + (title && title.rendered ? title.rendered : "") + "</h3>\n                        " + (date_published ? "<small>" + date_published + "</small>" : null) + "\n                        <p>" + (preview_content || "") + "</p>\n                    </div>\n                </a>\n            ");
             }
         });
     });

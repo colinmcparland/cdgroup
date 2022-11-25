@@ -1,6 +1,6 @@
 export function populateNewsTiles(newsSort = "newfirst", searchFilter = null) {
     return new Promise((resolve, reject) => {
-    
+
         const { news_posts } = window;
 
         news_posts && news_posts
@@ -36,7 +36,7 @@ export function populateNewsTiles(newsSort = "newfirst", searchFilter = null) {
             $('.news-tiles__wrapper').append(`
                 <a class='col-12 col-sm-6 col-lg-4' href="/news/${slug}">
                     <div class="news-tiles__tile mb-5">
-                        <div class="news-tiles__tile-img" style="background-image: url(${image || ""});"  />
+                        <div class="news-tiles__tile-img" style="background-image: url(${image || ""});" ></div>
                         <h3 class='mt-3'>${title && title.rendered ? title.rendered : ""}</h3>
                         ${date_published ? `<small>${date_published}</small>` : null}
                         <p>${preview_content || ""}</p>
@@ -52,22 +52,22 @@ export function populateSingleNews() {
     return new Promise((resolve, reject) => {
         const { news_posts } = window;
         const thisNews = location.pathname.split('news/')[1];
-      
+
         const relevantNews = news_posts.find(newstPost => newstPost.slug === thisNews);
-      
+
         const { acf } = relevantNews || {};
-      
+
         const {
           main_content,
           subtitle,
           date_published,
           category
         } = acf || {};
-    
-        const { title } = relevantNews || {};    
+
+        const { title } = relevantNews || {};
 
         const image = relevantNews && relevantNews._embedded &&  relevantNews._embedded['wp:featuredmedia'] &&  relevantNews._embedded['wp:featuredmedia'][0] &&  relevantNews._embedded['wp:featuredmedia'][0].source_url ? relevantNews._embedded['wp:featuredmedia'][0].source_url : ""
-      
+
         if(title && title.rendered) {
           $('.single-news__title').html(title.rendered);
         }
@@ -75,7 +75,7 @@ export function populateSingleNews() {
         if(main_content) {
             $(".single-news__content").html(main_content);
         }
-      
+
         if(subtitle) {
             $(".single-news__subtitle").html(subtitle);
         }
@@ -83,7 +83,7 @@ export function populateSingleNews() {
         if(category) {
             $(".single-news__category").html(category);
         }
-        
+
         if(date_published) {
             $(".single-news__date").html(date_published);
         }
@@ -93,7 +93,7 @@ export function populateSingleNews() {
         }
 
     })
-  
+
   }
 
   export const newsListeners = () => {
@@ -103,7 +103,7 @@ export function populateSingleNews() {
             $(".news-tiles__wrapper").empty();
             localStorage.setItem("news-sort", $(e.currentTarget).hasClass("newfirst") ? "newfirst" : "oldfirst");
             populateNewsTiles(localStorage.getItem("news-sort"), localStorage.getItem("news_search_query"));
-        } 
+        }
     })
 
     $(".news-search-filter input").on("change textInput, input", (e) => {

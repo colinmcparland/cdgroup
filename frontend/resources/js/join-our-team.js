@@ -4,7 +4,7 @@ export const populateJoinOurTeam = () => {
         const { acf } = join_our_team_data;
         const { header, main_content, hero_image } = acf;
 
-    
+
         if(hero_image) {
             $(".join-our-team__hero").css("background-image", `url(${hero_image})`);
         }
@@ -22,6 +22,5 @@ export const populateJoinOurTeam = () => {
         if(markets_posts) {
             markets_posts.map(post => $(".join-our-team form select[name='expertise']").append(`<option value=${post.title.rendered}>${post.title.rendered}</option>`));
         }
-    })
-
+    });
 };

@@ -8,7 +8,7 @@
   </div>
   <div class="row my-5 py-5">
     <div class="col-12">
-      <a class='home-projects__button' href="#">View All Projects</a>
+      <a class='home-projects__button' href="/projects">View All Projects</a>
     </div>
   </div>
 </div>

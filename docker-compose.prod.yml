@@ -1,6 +1,5 @@
 services:
   server:
-    depends_on:
     volumes:
       - type: volume
         source: fe-volume

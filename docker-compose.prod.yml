@@ -1,5 +1,7 @@
 services:
   server:
+    depends_on:
+      - certbot
     volumes:
       - type: volume
         source: fe-volume
@@ -7,8 +9,12 @@ services:
       - type: volume
         source: admin-volume
         target: /var/www/admin/assets
-      - certbot-volume-www:/var/website/certbot:ro
-      - certbot-volume-config:/etc/nginx/ssl:ro
+      - type: volume
+        source: certbot-www-volume
+        target: /var/website/certbot:ro
+      - type: volume
+        source: certbot-config-volume
+        target: /etc/nginx/ssl:ro
   frontend:
     volumes:
       - fe-volume:/cdg/public
@@ -24,7 +30,7 @@ services:
 volumes:
   fe-volume:
   admin-volume:
-  certbot-volume-www:
+  certbot-www-volume:
     external: true
-  certbot-volume-config:
+  certbot-config-volume:
     external: true

@@ -13,6 +13,9 @@
 
   <div class="container">
       <div class="row join-our-team">
+        <div class="col-12 col-md-8 order-md-2 order-1">
+          @include('partials.join-our-team.content')
+        </div>
           <div class="col-12 col-md-4 order-md-1 order-2">
               <form method="post" action="/submit-join-team-form" enctype="multipart/form-data">
                 <input name="_method" value="PUT" type="hidden"></input>
@@ -21,12 +24,6 @@
                   @include('partials.join-our-team.form')
                 </div>
               </form>
-          </div>
-
-          <div class="col-12 col-md-8 order-md-2 order-1">
-            <div class="row no-gutters">
-              @include('partials.join-our-team.content')
-            </div>
           </div>
       </div>
   </div>

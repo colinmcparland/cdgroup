@@ -20,5 +20,7 @@ export function populateSingleProject() {
     $('.single-project-content-area-2__title').html(content_area_2 && content_area_2.subheader ? content_area_2.subheader : "");
     $('.single-project-content-area-2__content').html(content_area_2 && content_area_2.content ? content_area_2.content : "");
 
-    document.title = relevantProject.title.rendered;
+    if(relevantProject.title.rendered) {
+      document.title = relevantProject.title.rendered.replace('#038;', '');;
+    }
 }

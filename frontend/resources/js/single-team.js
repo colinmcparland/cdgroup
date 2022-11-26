@@ -26,6 +26,8 @@ export function populateSingleTeam() {
     $('.team-member__content-position').text(position || "");
     $('.team-member__content-content').html(main_content || "");
 
-    document.title = title.rendered;
+    if(title.rendered) {
+      document.title = title.rendered.replace('#038;', '');
+    }
 
 }

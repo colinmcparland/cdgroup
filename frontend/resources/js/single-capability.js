@@ -62,5 +62,7 @@ export function populateSingleCapability() {
       `);
     });
 
-  document.title = relevantCapability.title.rendered;
+  if (relevantCapability.title.rendered) {
+    document.title = relevantCapability.title.rendered.replace('#038;', '');
+  }
 }

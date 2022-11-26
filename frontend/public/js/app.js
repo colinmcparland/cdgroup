@@ -40977,8 +40977,9 @@ function populateSingleMarket() {
   }).forEach(function (projects_post) {
     $('.single-market-project-tiles__cards-container').append('\n          <div class="col-12 col-md-6 mb-5 home-projects__card">\n              <a href="/projects/' + (projects_post && projects_post.slug ? projects_post.slug : "#") + '">\n              <div style="background-image: url(' + (projects_post && projects_post._embedded && projects_post._embedded['wp:featuredmedia'] && projects_post._embedded['wp:featuredmedia'][0] && projects_post._embedded['wp:featuredmedia'][0].source_url ? projects_post._embedded['wp:featuredmedia'][0].source_url : "") + ');" class="project-image-container"></div>\n                  <p>' + (projects_post && projects_post.title && projects_post.title.rendered ? projects_post.title.rendered : "") + '</p>\n              </a>\n          </div>\n      ');
   });
-
-  document.title = relevantMarket.title.rendered;
+  if (relevantMarket.title.rendered) {
+    document.title = relevantMarket.title.rendered.replace('#038;', '');
+  }
 }
 
 /***/ }),
@@ -41049,7 +41050,9 @@ function populateSingleCapability() {
     $('.single-capability-project-tiles__cards-container').append('\n          <div class="col-12 col-md-6 mb-5 home-projects__card">\n              <a href="/projects/' + (projects_post && projects_post.slug ? projects_post.slug : "#") + '">\n              <div style="background-image: url(' + (projects_post && projects_post._embedded && projects_post._embedded['wp:featuredmedia'] && projects_post._embedded['wp:featuredmedia'][0] && projects_post._embedded['wp:featuredmedia'][0].source_url ? projects_post._embedded['wp:featuredmedia'][0].source_url : "") + ');" class="project-image-container"></div>\n                  <p>' + (projects_post && projects_post.title && projects_post.title.rendered ? projects_post.title.rendered : "") + '</p>\n              </a>\n          </div>\n      ');
   });
 
-  document.title = relevantCapability.title.rendered;
+  if (relevantCapability.title.rendered) {
+    document.title = relevantCapability.title.rendered.replace('#038;', '');
+  }
 }
 
 /***/ }),
@@ -41097,31 +41100,33 @@ function populateCapabilities() {
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = populateSingleProject;
 function populateSingleProject() {
-    var _window = window,
-        projects_posts = _window.projects_posts;
+  var _window = window,
+      projects_posts = _window.projects_posts;
 
-    var thisProject = location.pathname.split('projects/')[1];
+  var thisProject = location.pathname.split('projects/')[1];
 
-    var relevantProject = projects_posts && projects_posts.find(function (projectPost) {
-        return projectPost.slug === thisProject;
-    });
+  var relevantProject = projects_posts && projects_posts.find(function (projectPost) {
+    return projectPost.slug === thisProject;
+  });
 
-    var _ref = relevantProject || {},
-        acf = _ref.acf;
+  var _ref = relevantProject || {},
+      acf = _ref.acf;
 
-    var _ref2 = acf || {},
-        content_area_1 = _ref2.content_area_1,
-        content_area_2 = _ref2.content_area_2;
+  var _ref2 = acf || {},
+      content_area_1 = _ref2.content_area_1,
+      content_area_2 = _ref2.content_area_2;
 
-    $('.single-project-content-area-1__top-heading').html(relevantProject && relevantProject.title && relevantProject.title.rendered ? relevantProject.title.rendered : "");
-    $('.single-project-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
-    $('.single-project-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
+  $('.single-project-content-area-1__top-heading').html(relevantProject && relevantProject.title && relevantProject.title.rendered ? relevantProject.title.rendered : "");
+  $('.single-project-content-area-1__title').html(content_area_1 && content_area_1.title ? content_area_1.title : "");
+  $('.single-project-content-area-1__content').html(content_area_1 && content_area_1.content ? content_area_1.content : "");
 
-    $('.single-project-content-area-2__header').html(content_area_2 && content_area_2.header ? content_area_2.header : "");
-    $('.single-project-content-area-2__title').html(content_area_2 && content_area_2.subheader ? content_area_2.subheader : "");
-    $('.single-project-content-area-2__content').html(content_area_2 && content_area_2.content ? content_area_2.content : "");
+  $('.single-project-content-area-2__header').html(content_area_2 && content_area_2.header ? content_area_2.header : "");
+  $('.single-project-content-area-2__title').html(content_area_2 && content_area_2.subheader ? content_area_2.subheader : "");
+  $('.single-project-content-area-2__content').html(content_area_2 && content_area_2.content ? content_area_2.content : "");
 
-    document.title = relevantProject.title.rendered;
+  if (relevantProject.title.rendered) {
+    document.title = relevantProject.title.rendered.replace('#038;', '');;
+  }
 }
 
 /***/ }),
@@ -41209,7 +41214,7 @@ function populateSingleNews() {
 
         if (title && title.rendered) {
             $('.single-news__title').html(title.rendered);
-            document.title = title.rendered;
+            document.title = title.rendered.replace('#038;', '');
         }
 
         if (main_content) {
@@ -41436,7 +41441,9 @@ function populateSingleTeam() {
   $('.team-member__content-position').text(position || "");
   $('.team-member__content-content').html(main_content || "");
 
-  document.title = title.rendered;
+  if (title.rendered) {
+    document.title = title.rendered.replace('#038;', '');
+  }
 }
 
 /***/ }),

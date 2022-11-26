@@ -70,7 +70,7 @@ export function populateSingleNews() {
 
         if(title && title.rendered) {
           $('.single-news__title').html(title.rendered);
-          document.title = title.rendered;
+          document.title = title.rendered.replace('#038;', '');
         }
 
         if(main_content) {
@@ -92,8 +92,6 @@ export function populateSingleNews() {
         if(image) {
             $(".single-news__image").css("background-image", `url(${image})`);
         }
-
-
 
     });
 

@@ -4,7 +4,7 @@
 @section('desc', 'Capabilities of Community Development Group')
 
 @section('content')
-  @include('partials.header')
+  @include('partials.header')g
   @include('partials.capabilities-post.content-area-1')
   {{-- @include('partials.capabilities-post.content-area-2') --}}
   {{-- @include('partials.capabilities-post.cta') --}}

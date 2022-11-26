@@ -57,7 +57,8 @@ export function populateSingleMarket() {
           </div>
       `);
     });
-
-  document.title = relevantMarket.title.rendered;
+  if(relevantMarket.title.rendered) {
+    document.title = relevantMarket.title.rendered.replace('#038;', '');
+  }
 
 }

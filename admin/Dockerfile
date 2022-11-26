@@ -19,15 +19,15 @@ RUN sed -i 's/user = nobody/user = cdg/g' /etc/php7/php-fpm.d/www.conf
 RUN sed -i 's/group = nobody/group = cdg/g' /etc/php7/php-fpm.d/www.conf
 
 # Configure Wordpress
+RUN mv wp-config-sample.php wp-config.php
+
 RUN if [ "$DEV" = 'true' ] ; then \
-    echo "define('WP_DEBUG', true);" >> wp-config.php;\
-    echo "define('FORCE_SSL_ADMIN', false);" >> wp-config.php;\
-    echo -e 'define("FORCE_SSL_LOGIN", false);\n\n' >> wp-config.php;\
+    echo -e "define('WP_DEBUG', true);\n" >> wp-config.php;\
     else \
-    echo -e 'define("WP_DEBUG", false);\n\n' >> wp-config.php;\
+    echo -e 'define("WP_DEBUG", false);\n' >> wp-config.php;\
     fi
 
-RUN curl https://api.wordpress.org/secret-key/1.1/salt/ >> /admin/wp-config.php
+RUN curl https://api.wordpress.org/secret-key/1.1/salt/ >> wp-config.php
 
 RUN echo -e 'if ( !defined("ABSPATH") ) {\n'\
     'define("ABSPATH", dirname(__FILE__) . "/");\n'\

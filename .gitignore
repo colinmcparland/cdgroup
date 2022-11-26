@@ -1,3 +1,4 @@
 .history
 .env
 local-certs
+admin/wp-config.php

@@ -96,7 +96,7 @@ Route::put('/submit-join-team-form', function(Request $request) use ($client) {
     return redirect('/join-our-team')->with('message', 'There was a problem validating the captcha.  Please try again.');
   }
 
-  Mail::to('colin@tinybird.ca')->send(new JoinOurTeamEmail($name, $birthday, $ba_grad, $ba_major, $ma_grad, $ma_major, $country, $expertise, $specialization, $cv, $coverletter));
+  Mail::to(['jobs@cdgroup-ae.com', 'info@cdgroup-ae.com'])->send(new JoinOurTeamEmail($name, $birthday, $ba_grad, $ba_major, $ma_grad, $ma_major, $country, $expertise, $specialization, $cv, $coverletter));
 
   if(Mail::failures()) {
     return redirect('/join-our-team')->with('message', 'There was a problem sending your message.  Please try again.');
@@ -135,7 +135,7 @@ Route::put('/submit-contact-form', function(Request $request) use ($client) {
     return redirect('/contact')->with('message', 'There was an error validating your CAPTCHA.  Please try again.');
   }
 
-  Mail::to('colin@tinybird.ca')->send(new ContactUsEmail($name, $email, $content));
+  Mail::to('info@cdgroup-ae.com')->send(new ContactUsEmail($name, $email, $content));
 
   if(Mail::failures()) {
     return redirect('/contact')->with('message', 'There was a problem sending your message.  Please try again.');
